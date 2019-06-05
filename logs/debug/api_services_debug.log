@@ -1,0 +1,420 @@
+2019-06-05-14-29 [background-preinit] [org.hibernate.validator.internal.util.Version] [INFO] - HV000001: Hibernate Validator 6.0.16.Final
+2019-06-05-14-29 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Starting DatacenterApplication on SKY-20170806VLC with PID 9644 (started by Administrator in D:\Program Files\intellijEDEAworkspace\datacenter)
+2019-06-05-14-29 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - No active profile set, falling back to default profiles: default
+2019-06-05-14-29 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[mapper]' package. Please check your configuration.
+2019-06-05-14-29 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[com.shuheng.datacenter]' package. Please check your configuration.
+2019-06-05-14-29 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-05-14-29 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-05-14-29 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Finished Spring Data repository scanning in 6ms. Found 0 repository interfaces.
+2019-06-05-14-29 [main] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [INFO] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$bad45375] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-05-14-29 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat initialized with port(s): 8090 (http)
+2019-06-05-14-29 [main] [org.springframework.web.context.ContextLoader] [INFO] - Root WebApplicationContext: initialization completed in 1040 ms
+2019-06-05-14-29 [main] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor] [INFO] - Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-05-14-29 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Starting...
+2019-06-05-14-29 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Start completed.
+2019-06-05-14-29 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Using default implementation for ThreadExecutor
+2019-06-05-14-29 [main] [org.quartz.core.SchedulerSignalerImpl] [INFO] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-06-05-14-29 [main] [org.quartz.core.QuartzScheduler] [INFO] - Quartz Scheduler v.2.3.1 created.
+2019-06-05-14-29 [main] [org.quartz.simpl.RAMJobStore] [INFO] - RAMJobStore initialized.
+2019-06-05-14-29 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2019-06-05-14-29 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-06-05-14-29 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler version: 2.3.1
+2019-06-05-14-29 [main] [org.quartz.core.QuartzScheduler] [INFO] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@1c72ecc
+2019-06-05-14-29 [main] [org.springframework.scheduling.quartz.SchedulerFactoryBean] [INFO] - Starting Quartz Scheduler now
+2019-06-05-14-29 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-06-05-14-29 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat started on port(s): 8090 (http) with context path '/datacenter'
+2019-06-05-14-29 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Started DatacenterApplication in 2.545 seconds (JVM running for 2.961)
+2019-06-05-14-29 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Initializing Servlet 'dispatcherServlet'
+2019-06-05-14-29 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Completed initialization in 6 ms
+2019-06-05-14-29 [http-nio-8090-exec-2] [com.shuheng.datacenter.controller.UnitController] [ERROR] - sdfsdfsdfssdfsdfsd
+2019-06-05-14-31 [background-preinit] [org.hibernate.validator.internal.util.Version] [INFO] - HV000001: Hibernate Validator 6.0.16.Final
+2019-06-05-14-31 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Starting DatacenterApplication on SKY-20170806VLC with PID 9960 (started by Administrator in D:\Program Files\intellijEDEAworkspace\datacenter)
+2019-06-05-14-31 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - No active profile set, falling back to default profiles: default
+2019-06-05-14-31 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[mapper]' package. Please check your configuration.
+2019-06-05-14-31 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[com.shuheng.datacenter]' package. Please check your configuration.
+2019-06-05-14-31 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-05-14-31 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-05-14-31 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Finished Spring Data repository scanning in 6ms. Found 0 repository interfaces.
+2019-06-05-14-31 [main] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [INFO] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$d98bc7ed] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-05-14-31 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat initialized with port(s): 8090 (http)
+2019-06-05-14-31 [main] [org.springframework.web.context.ContextLoader] [INFO] - Root WebApplicationContext: initialization completed in 1028 ms
+2019-06-05-14-31 [main] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor] [INFO] - Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-05-14-31 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Starting...
+2019-06-05-14-31 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Start completed.
+2019-06-05-14-31 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Using default implementation for ThreadExecutor
+2019-06-05-14-31 [main] [org.quartz.core.SchedulerSignalerImpl] [INFO] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-06-05-14-31 [main] [org.quartz.core.QuartzScheduler] [INFO] - Quartz Scheduler v.2.3.1 created.
+2019-06-05-14-31 [main] [org.quartz.simpl.RAMJobStore] [INFO] - RAMJobStore initialized.
+2019-06-05-14-31 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2019-06-05-14-31 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-06-05-14-31 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler version: 2.3.1
+2019-06-05-14-31 [main] [org.quartz.core.QuartzScheduler] [INFO] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@16a7f44
+2019-06-05-14-31 [main] [org.springframework.scheduling.quartz.SchedulerFactoryBean] [INFO] - Starting Quartz Scheduler now
+2019-06-05-14-31 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-06-05-14-31 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat started on port(s): 8090 (http) with context path '/datacenter'
+2019-06-05-14-31 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Started DatacenterApplication in 2.572 seconds (JVM running for 2.979)
+2019-06-05-14-31 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Initializing Servlet 'dispatcherServlet'
+2019-06-05-14-31 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Completed initialization in 6 ms
+2019-06-05-14-31 [http-nio-8090-exec-1] [com.shuheng.datacenter.exception.CommonExceptionHandler] [ERROR] - [Ljava.lang.StackTraceElement;@ebbaf8
+2019-06-05-14-31 [http-nio-8090-exec-3] [com.shuheng.datacenter.exception.CommonExceptionHandler] [ERROR] - [Ljava.lang.StackTraceElement;@135d085
+2019-06-05-14-31 [background-preinit] [org.hibernate.validator.internal.util.Version] [INFO] - HV000001: Hibernate Validator 6.0.16.Final
+2019-06-05-14-31 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Starting DatacenterApplication on SKY-20170806VLC with PID 6956 (started by Administrator in D:\Program Files\intellijEDEAworkspace\datacenter)
+2019-06-05-14-31 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - No active profile set, falling back to default profiles: default
+2019-06-05-14-31 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[mapper]' package. Please check your configuration.
+2019-06-05-14-31 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[com.shuheng.datacenter]' package. Please check your configuration.
+2019-06-05-14-31 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-05-14-31 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-05-14-31 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Finished Spring Data repository scanning in 7ms. Found 0 repository interfaces.
+2019-06-05-14-31 [main] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [INFO] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$1d1ed732] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-05-14-31 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat initialized with port(s): 8090 (http)
+2019-06-05-14-31 [main] [org.springframework.web.context.ContextLoader] [INFO] - Root WebApplicationContext: initialization completed in 1229 ms
+2019-06-05-14-31 [main] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor] [INFO] - Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-05-14-31 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Starting...
+2019-06-05-14-31 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Start completed.
+2019-06-05-14-31 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Using default implementation for ThreadExecutor
+2019-06-05-14-31 [main] [org.quartz.core.SchedulerSignalerImpl] [INFO] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-06-05-14-31 [main] [org.quartz.core.QuartzScheduler] [INFO] - Quartz Scheduler v.2.3.1 created.
+2019-06-05-14-31 [main] [org.quartz.simpl.RAMJobStore] [INFO] - RAMJobStore initialized.
+2019-06-05-14-31 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2019-06-05-14-31 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-06-05-14-31 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler version: 2.3.1
+2019-06-05-14-31 [main] [org.quartz.core.QuartzScheduler] [INFO] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@b458e6
+2019-06-05-14-31 [main] [org.springframework.scheduling.quartz.SchedulerFactoryBean] [INFO] - Starting Quartz Scheduler now
+2019-06-05-14-31 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-06-05-14-31 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat started on port(s): 8090 (http) with context path '/datacenter'
+2019-06-05-14-31 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Started DatacenterApplication in 3.11 seconds (JVM running for 3.566)
+2019-06-05-14-31 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Initializing Servlet 'dispatcherServlet'
+2019-06-05-14-31 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Completed initialization in 7 ms
+2019-06-05-14-31 [http-nio-8090-exec-1] [com.shuheng.datacenter.exception.CommonExceptionHandler] [ERROR] - [Ljava.lang.StackTraceElement;@65d4ec
+2019-06-05-14-32 [http-nio-8090-exec-3] [com.shuheng.datacenter.exception.CommonExceptionHandler] [ERROR] - [Ljava.lang.StackTraceElement;@12f32cf
+2019-06-05-14-32 [http-nio-8090-exec-4] [com.shuheng.datacenter.exception.CommonExceptionHandler] [ERROR] - [Ljava.lang.StackTraceElement;@d80314
+2019-06-05-14-33 [HikariPool-1 housekeeper] [com.zaxxer.hikari.pool.HikariPool] [WARN] - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=55s24ms571µs783ns).
+2019-06-05-14-34 [background-preinit] [org.hibernate.validator.internal.util.Version] [INFO] - HV000001: Hibernate Validator 6.0.16.Final
+2019-06-05-14-34 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Starting DatacenterApplication on SKY-20170806VLC with PID 8708 (started by Administrator in D:\Program Files\intellijEDEAworkspace\datacenter)
+2019-06-05-14-34 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - No active profile set, falling back to default profiles: default
+2019-06-05-14-34 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[mapper]' package. Please check your configuration.
+2019-06-05-14-34 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[com.shuheng.datacenter]' package. Please check your configuration.
+2019-06-05-14-34 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-05-14-34 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-05-14-34 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Finished Spring Data repository scanning in 6ms. Found 0 repository interfaces.
+2019-06-05-14-34 [main] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [INFO] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$1cf2b194] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-05-14-34 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat initialized with port(s): 8090 (http)
+2019-06-05-14-34 [main] [org.springframework.web.context.ContextLoader] [INFO] - Root WebApplicationContext: initialization completed in 1234 ms
+2019-06-05-14-34 [main] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor] [INFO] - Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-05-14-34 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Starting...
+2019-06-05-14-34 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Start completed.
+2019-06-05-14-34 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Using default implementation for ThreadExecutor
+2019-06-05-14-34 [main] [org.quartz.core.SchedulerSignalerImpl] [INFO] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-06-05-14-34 [main] [org.quartz.core.QuartzScheduler] [INFO] - Quartz Scheduler v.2.3.1 created.
+2019-06-05-14-34 [main] [org.quartz.simpl.RAMJobStore] [INFO] - RAMJobStore initialized.
+2019-06-05-14-34 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2019-06-05-14-34 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-06-05-14-34 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler version: 2.3.1
+2019-06-05-14-34 [main] [org.quartz.core.QuartzScheduler] [INFO] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@1ccb12d
+2019-06-05-14-34 [main] [org.springframework.scheduling.quartz.SchedulerFactoryBean] [INFO] - Starting Quartz Scheduler now
+2019-06-05-14-34 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-06-05-14-34 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat started on port(s): 8090 (http) with context path '/datacenter'
+2019-06-05-14-34 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Started DatacenterApplication in 3.034 seconds (JVM running for 3.468)
+2019-06-05-14-34 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Initializing Servlet 'dispatcherServlet'
+2019-06-05-14-34 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Completed initialization in 7 ms
+2019-06-05-14-34 [http-nio-8090-exec-1] [com.shuheng.datacenter.exception.CommonExceptionHandler] [ERROR] - [Ljava.lang.StackTraceElement;@42e683
+2019-06-05-14-35 [background-preinit] [org.hibernate.validator.internal.util.Version] [INFO] - HV000001: Hibernate Validator 6.0.16.Final
+2019-06-05-14-35 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Starting DatacenterApplication on SKY-20170806VLC with PID 8332 (started by Administrator in D:\Program Files\intellijEDEAworkspace\datacenter)
+2019-06-05-14-35 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - No active profile set, falling back to default profiles: default
+2019-06-05-14-35 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[mapper]' package. Please check your configuration.
+2019-06-05-14-35 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[com.shuheng.datacenter]' package. Please check your configuration.
+2019-06-05-14-35 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-05-14-35 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-05-14-35 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Finished Spring Data repository scanning in 7ms. Found 0 repository interfaces.
+2019-06-05-14-35 [main] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [INFO] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$37970443] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-05-14-35 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat initialized with port(s): 8090 (http)
+2019-06-05-14-35 [main] [org.springframework.web.context.ContextLoader] [INFO] - Root WebApplicationContext: initialization completed in 1225 ms
+2019-06-05-14-35 [main] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor] [INFO] - Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-05-14-35 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Starting...
+2019-06-05-14-35 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Start completed.
+2019-06-05-14-35 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Using default implementation for ThreadExecutor
+2019-06-05-14-35 [main] [org.quartz.core.SchedulerSignalerImpl] [INFO] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-06-05-14-35 [main] [org.quartz.core.QuartzScheduler] [INFO] - Quartz Scheduler v.2.3.1 created.
+2019-06-05-14-35 [main] [org.quartz.simpl.RAMJobStore] [INFO] - RAMJobStore initialized.
+2019-06-05-14-35 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2019-06-05-14-35 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-06-05-14-35 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler version: 2.3.1
+2019-06-05-14-35 [main] [org.quartz.core.QuartzScheduler] [INFO] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@7e0734
+2019-06-05-14-35 [main] [org.springframework.scheduling.quartz.SchedulerFactoryBean] [INFO] - Starting Quartz Scheduler now
+2019-06-05-14-35 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-06-05-14-35 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat started on port(s): 8090 (http) with context path '/datacenter'
+2019-06-05-14-35 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Started DatacenterApplication in 3.123 seconds (JVM running for 3.551)
+2019-06-05-14-35 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Initializing Servlet 'dispatcherServlet'
+2019-06-05-14-35 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Completed initialization in 6 ms
+2019-06-05-14-35 [http-nio-8090-exec-1] [com.shuheng.datacenter.exception.CommonExceptionHandler] [ERROR] - [Ljava.lang.StackTraceElement;@a877f3
+2019-06-05-14-36 [background-preinit] [org.hibernate.validator.internal.util.Version] [INFO] - HV000001: Hibernate Validator 6.0.16.Final
+2019-06-05-14-36 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Starting DatacenterApplication on SKY-20170806VLC with PID 8960 (started by Administrator in D:\Program Files\intellijEDEAworkspace\datacenter)
+2019-06-05-14-36 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - No active profile set, falling back to default profiles: default
+2019-06-05-14-36 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[mapper]' package. Please check your configuration.
+2019-06-05-14-36 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[com.shuheng.datacenter]' package. Please check your configuration.
+2019-06-05-14-36 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-05-14-36 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-05-14-36 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Finished Spring Data repository scanning in 9ms. Found 0 repository interfaces.
+2019-06-05-14-36 [main] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [INFO] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$160a0d5e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-05-14-36 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat initialized with port(s): 8090 (http)
+2019-06-05-14-36 [main] [org.springframework.web.context.ContextLoader] [INFO] - Root WebApplicationContext: initialization completed in 1206 ms
+2019-06-05-14-36 [main] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor] [INFO] - Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-05-14-36 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Starting...
+2019-06-05-14-36 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Start completed.
+2019-06-05-14-36 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Using default implementation for ThreadExecutor
+2019-06-05-14-36 [main] [org.quartz.core.SchedulerSignalerImpl] [INFO] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-06-05-14-36 [main] [org.quartz.core.QuartzScheduler] [INFO] - Quartz Scheduler v.2.3.1 created.
+2019-06-05-14-36 [main] [org.quartz.simpl.RAMJobStore] [INFO] - RAMJobStore initialized.
+2019-06-05-14-36 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2019-06-05-14-36 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-06-05-14-36 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler version: 2.3.1
+2019-06-05-14-36 [main] [org.quartz.core.QuartzScheduler] [INFO] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@28a02b
+2019-06-05-14-36 [main] [org.springframework.scheduling.quartz.SchedulerFactoryBean] [INFO] - Starting Quartz Scheduler now
+2019-06-05-14-36 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-06-05-14-36 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat started on port(s): 8090 (http) with context path '/datacenter'
+2019-06-05-14-36 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Started DatacenterApplication in 3.016 seconds (JVM running for 3.447)
+2019-06-05-14-36 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Initializing Servlet 'dispatcherServlet'
+2019-06-05-14-36 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Completed initialization in 6 ms
+2019-06-05-14-36 [http-nio-8090-exec-1] [com.shuheng.datacenter.exception.CommonExceptionHandler] [ERROR] - java.lang.ArithmeticException: / by zero
+2019-06-05-14-37 [background-preinit] [org.hibernate.validator.internal.util.Version] [INFO] - HV000001: Hibernate Validator 6.0.16.Final
+2019-06-05-14-37 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Starting DatacenterApplication on SKY-20170806VLC with PID 6384 (started by Administrator in D:\Program Files\intellijEDEAworkspace\datacenter)
+2019-06-05-14-37 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - No active profile set, falling back to default profiles: default
+2019-06-05-14-37 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[mapper]' package. Please check your configuration.
+2019-06-05-14-37 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[com.shuheng.datacenter]' package. Please check your configuration.
+2019-06-05-14-37 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-05-14-37 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-05-14-37 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Finished Spring Data repository scanning in 7ms. Found 0 repository interfaces.
+2019-06-05-14-37 [main] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [INFO] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$126c8347] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-05-14-37 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat initialized with port(s): 8090 (http)
+2019-06-05-14-37 [main] [org.springframework.web.context.ContextLoader] [INFO] - Root WebApplicationContext: initialization completed in 1194 ms
+2019-06-05-14-37 [main] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor] [INFO] - Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-05-14-37 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Starting...
+2019-06-05-14-37 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Start completed.
+2019-06-05-14-37 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Using default implementation for ThreadExecutor
+2019-06-05-14-37 [main] [org.quartz.core.SchedulerSignalerImpl] [INFO] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-06-05-14-37 [main] [org.quartz.core.QuartzScheduler] [INFO] - Quartz Scheduler v.2.3.1 created.
+2019-06-05-14-37 [main] [org.quartz.simpl.RAMJobStore] [INFO] - RAMJobStore initialized.
+2019-06-05-14-37 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2019-06-05-14-37 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-06-05-14-37 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler version: 2.3.1
+2019-06-05-14-37 [main] [org.quartz.core.QuartzScheduler] [INFO] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@1218c74
+2019-06-05-14-37 [main] [org.springframework.scheduling.quartz.SchedulerFactoryBean] [INFO] - Starting Quartz Scheduler now
+2019-06-05-14-37 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-06-05-14-37 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat started on port(s): 8090 (http) with context path '/datacenter'
+2019-06-05-14-37 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Started DatacenterApplication in 3.045 seconds (JVM running for 3.491)
+2019-06-05-14-38 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Initializing Servlet 'dispatcherServlet'
+2019-06-05-14-38 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Completed initialization in 9 ms
+2019-06-05-14-38 [http-nio-8090-exec-1] [com.shuheng.datacenter.exception.CommonExceptionHandler] [ERROR] - java.lang.ArithmeticException: / by zero
+2019-06-05-14-39 [background-preinit] [org.hibernate.validator.internal.util.Version] [INFO] - HV000001: Hibernate Validator 6.0.16.Final
+2019-06-05-14-39 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Starting DatacenterApplication on SKY-20170806VLC with PID 6448 (started by Administrator in D:\Program Files\intellijEDEAworkspace\datacenter)
+2019-06-05-14-39 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - No active profile set, falling back to default profiles: default
+2019-06-05-14-39 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[mapper]' package. Please check your configuration.
+2019-06-05-14-39 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[com.shuheng.datacenter]' package. Please check your configuration.
+2019-06-05-14-39 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-05-14-39 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-05-14-39 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Finished Spring Data repository scanning in 6ms. Found 0 repository interfaces.
+2019-06-05-14-39 [main] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [INFO] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$ad660129] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-05-14-39 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat initialized with port(s): 8090 (http)
+2019-06-05-14-39 [main] [org.springframework.web.context.ContextLoader] [INFO] - Root WebApplicationContext: initialization completed in 1206 ms
+2019-06-05-14-39 [main] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor] [INFO] - Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-05-14-39 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Starting...
+2019-06-05-14-39 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Start completed.
+2019-06-05-14-39 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Using default implementation for ThreadExecutor
+2019-06-05-14-39 [main] [org.quartz.core.SchedulerSignalerImpl] [INFO] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-06-05-14-39 [main] [org.quartz.core.QuartzScheduler] [INFO] - Quartz Scheduler v.2.3.1 created.
+2019-06-05-14-39 [main] [org.quartz.simpl.RAMJobStore] [INFO] - RAMJobStore initialized.
+2019-06-05-14-39 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2019-06-05-14-39 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-06-05-14-39 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler version: 2.3.1
+2019-06-05-14-39 [main] [org.quartz.core.QuartzScheduler] [INFO] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@136fd8f
+2019-06-05-14-39 [main] [org.springframework.scheduling.quartz.SchedulerFactoryBean] [INFO] - Starting Quartz Scheduler now
+2019-06-05-14-39 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-06-05-14-39 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat started on port(s): 8090 (http) with context path '/datacenter'
+2019-06-05-14-39 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Started DatacenterApplication in 3.01 seconds (JVM running for 3.447)
+2019-06-05-14-39 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Initializing Servlet 'dispatcherServlet'
+2019-06-05-14-39 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Completed initialization in 6 ms
+2019-06-05-14-39 [http-nio-8090-exec-1] [com.shuheng.datacenter.exception.CommonExceptionHandler] [ERROR] - java.lang.ArithmeticException: / by zero
+2019-06-05-14-40 [background-preinit] [org.hibernate.validator.internal.util.Version] [INFO] - HV000001: Hibernate Validator 6.0.16.Final
+2019-06-05-14-40 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Starting DatacenterApplication on SKY-20170806VLC with PID 7540 (started by Administrator in D:\Program Files\intellijEDEAworkspace\datacenter)
+2019-06-05-14-40 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - No active profile set, falling back to default profiles: default
+2019-06-05-14-40 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[mapper]' package. Please check your configuration.
+2019-06-05-14-40 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[com.shuheng.datacenter]' package. Please check your configuration.
+2019-06-05-14-40 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-05-14-40 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-05-14-40 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Finished Spring Data repository scanning in 7ms. Found 0 repository interfaces.
+2019-06-05-14-40 [main] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [INFO] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c6ef9dd8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-05-14-40 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat initialized with port(s): 8090 (http)
+2019-06-05-14-40 [main] [org.springframework.web.context.ContextLoader] [INFO] - Root WebApplicationContext: initialization completed in 1182 ms
+2019-06-05-14-40 [main] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor] [INFO] - Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-05-14-40 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Starting...
+2019-06-05-14-40 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Start completed.
+2019-06-05-14-40 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Using default implementation for ThreadExecutor
+2019-06-05-14-40 [main] [org.quartz.core.SchedulerSignalerImpl] [INFO] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-06-05-14-40 [main] [org.quartz.core.QuartzScheduler] [INFO] - Quartz Scheduler v.2.3.1 created.
+2019-06-05-14-40 [main] [org.quartz.simpl.RAMJobStore] [INFO] - RAMJobStore initialized.
+2019-06-05-14-40 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2019-06-05-14-40 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-06-05-14-40 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler version: 2.3.1
+2019-06-05-14-40 [main] [org.quartz.core.QuartzScheduler] [INFO] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@1bf35e5
+2019-06-05-14-40 [main] [org.springframework.scheduling.quartz.SchedulerFactoryBean] [INFO] - Starting Quartz Scheduler now
+2019-06-05-14-40 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-06-05-14-40 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat started on port(s): 8090 (http) with context path '/datacenter'
+2019-06-05-14-40 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Started DatacenterApplication in 3.031 seconds (JVM running for 3.503)
+2019-06-05-14-40 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Initializing Servlet 'dispatcherServlet'
+2019-06-05-14-40 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Completed initialization in 5 ms
+2019-06-05-14-40 [http-nio-8090-exec-1] [com.shuheng.datacenter.exception.CommonExceptionHandler] [ERROR] - java.lang.ArithmeticException: / by zero
+2019-06-05-14-49 [background-preinit] [org.hibernate.validator.internal.util.Version] [INFO] - HV000001: Hibernate Validator 6.0.16.Final
+2019-06-05-14-49 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Starting DatacenterApplication on SKY-20170806VLC with PID 8772 (started by Administrator in D:\Program Files\intellijEDEAworkspace\datacenter)
+2019-06-05-14-49 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - No active profile set, falling back to default profiles: default
+2019-06-05-14-49 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[mapper]' package. Please check your configuration.
+2019-06-05-14-49 [main] [org.mybatis.spring.mapper.ClassPathMapperScanner] [WARN] - No MyBatis mapper was found in '[com.shuheng.datacenter]' package. Please check your configuration.
+2019-06-05-14-49 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Multiple Spring Data modules found, entering strict repository configuration mode!
+2019-06-05-14-49 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-06-05-14-49 [main] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [INFO] - Finished Spring Data repository scanning in 7ms. Found 0 repository interfaces.
+2019-06-05-14-49 [main] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [INFO] - Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$9331441d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-06-05-14-49 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat initialized with port(s): 8090 (http)
+2019-06-05-14-49 [main] [org.springframework.web.context.ContextLoader] [INFO] - Root WebApplicationContext: initialization completed in 1198 ms
+2019-06-05-14-49 [main] [org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor] [INFO] - Initializing ExecutorService 'applicationTaskExecutor'
+2019-06-05-14-49 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Starting...
+2019-06-05-14-49 [main] [com.zaxxer.hikari.HikariDataSource] [INFO] - HikariPool-1 - Start completed.
+2019-06-05-14-49 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Using default implementation for ThreadExecutor
+2019-06-05-14-49 [main] [org.quartz.core.SchedulerSignalerImpl] [INFO] - Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-06-05-14-49 [main] [org.quartz.core.QuartzScheduler] [INFO] - Quartz Scheduler v.2.3.1 created.
+2019-06-05-14-49 [main] [org.quartz.simpl.RAMJobStore] [INFO] - RAMJobStore initialized.
+2019-06-05-14-49 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2019-06-05-14-49 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-06-05-14-49 [main] [org.quartz.impl.StdSchedulerFactory] [INFO] - Quartz scheduler version: 2.3.1
+2019-06-05-14-49 [main] [org.quartz.core.QuartzScheduler] [INFO] - JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@f677f8
+2019-06-05-14-49 [main] [org.springframework.scheduling.quartz.SchedulerFactoryBean] [INFO] - Starting Quartz Scheduler now
+2019-06-05-14-49 [main] [org.quartz.core.QuartzScheduler] [INFO] - Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-06-05-14-49 [main] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [INFO] - Tomcat started on port(s): 8090 (http) with context path '/datacenter'
+2019-06-05-14-49 [main] [com.shuheng.datacenter.DatacenterApplication] [INFO] - Started DatacenterApplication in 3.038 seconds (JVM running for 3.475)
+2019-06-05-14-49 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Initializing Servlet 'dispatcherServlet'
+2019-06-05-14-49 [http-nio-8090-exec-1] [org.springframework.web.servlet.DispatcherServlet] [INFO] - Completed initialization in 5 ms
+2019-06-05-14-49 [http-nio-8090-exec-1] [com.shuheng.datacenter.exception.CommonExceptionHandler] [ERROR] - java.lang.ArithmeticException: / by zero
+java.lang.ArithmeticException: / by zero
+	at com.shuheng.datacenter.controller.UnitController.syncUnit(UnitController.java:43)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:190)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:138)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:104)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:892)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1039)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:200)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:836)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1747)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:748)
