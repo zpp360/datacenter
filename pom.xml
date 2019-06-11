@@ -29,6 +29,14 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<!--热更新-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+			<scope>true</scope>
+		</dependency>
+		<!--log4j-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-log4j</artifactId>
@@ -68,6 +76,21 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.8</version>
 		</dependency>
+
+		<!--JWT  JSON WEB TOKEN 认证-->
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>3.3.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.58</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

@@ -15,7 +15,7 @@ public class ApiData implements Serializable {
     private String errorCode;
     private String errorMsg;
     private Map<String, Object> data = null;
-    private List<Map<String,String>> datas = null;
+    private List<PageData> datas = null;
 
 
     /**
@@ -121,11 +121,11 @@ public class ApiData implements Serializable {
         this.data = data;
     }
 
-    public List<Map<String, String>> getDatas() {
+    public List<PageData> getDatas() {
         return datas;
     }
 
-    public void setDatas(List<Map<String, String>> datas) {
+    public void setDatas(List<PageData> datas) {
         this.datas = datas;
     }
 

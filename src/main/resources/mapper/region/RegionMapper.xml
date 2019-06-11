@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="RegionMapper">
+    <select id="listRegion" parameterType="pd" resultType="pd">
+        SELECT
+        *
+        FROM m_region_info t
+        where t.del_flg = '0'
+        AND  SUBSTR(t.region_code,1,4) = '3702'
+        <if test="timestamp!=null and timestamp!=''">
+            AND t.update_timestamp <![CDATA[ > ]]> #{timestamp}
+        </if>
+        limit #{start},#{page_size}
+    </select>
+
+</mapper>

@@ -15,7 +15,22 @@ public class ApiConstants {
      * 参数错误
      */
     public static final String CODE_201 = "201";
+    /**
+     * 系统异常
+     */
     public static final String CODE_202 = "202";
+    /**
+     * token获取验证失败
+     */
+    public static final String CODE_203 = "203";
+    /**
+     * token验证失败
+     */
+    public static final String CODE_204 = "204";
+    /**
+     * timestamp时间戳校验失败
+     */
+    public static final String CODE_205 = "205";
 
 
 
@@ -24,6 +39,9 @@ public class ApiConstants {
         map.put("200", "success");
         map.put("201", "参数错误");
         map.put("202", "系统异常");
+        map.put("203", "token获取验证失败");
+        map.put("204", "token验证失败");
+        map.put("205", "timestamp时间戳校验失败");
 
 
         ERROR_MAP = Collections.unmodifiableMap(map);
