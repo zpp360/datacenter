@@ -4,7 +4,12 @@
 <mapper namespace="RegionMapper">
     <select id="listRegion" parameterType="pd" resultType="pd">
         SELECT
-        *
+          t.region_id,
+          t.parent_id,
+          t.del_flg,
+          t.region_name,
+          t.region_code,
+          t.update_timestamp
         FROM m_region_info t
         where t.del_flg = '0'
         AND  SUBSTR(t.region_code,1,4) = '3702'

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="AppUserMapper">
+    <select id="listUser" parameterType="pd" resultType="pd">
+        SELECT
+          t.user_id,
+          t.user_phone,
+          t.user_name,
+          t.user_pic,
+          t.user_sex,
+          t.user_birthday,
+          t.is_party,
+          t.user_join_party_time,
+          t.user_id_number,
+          t.user_province,
+          t.user_city,
+          t.user_county,
+          t.user_street,
+          t.user_community,
+          t.user_address,
+          t.user_type,
+          t.user_unit,
+          t.del_flag,
+          t.user_mz,
+          t.user_department,
+          t.user_job,
+          t.user_score,
+          t.office_phone,
+          t.user_education,
+          t.person_group,
+          t.user_number,
+          t.user_desc
+        FROM  m_user t,m_unit n
+        where t.user_unit = n.unit_id
+        and n.del_flg = '0'
+        and n.city = '171'
+        and (t.user_status = '1' or t.user_status = '3')
+        <if test="timestamp!=null and timestamp!=''">
+            AND t.update_time <![CDATA[ > ]]> #{timestamp}
+        </if>
+        limit #{start},#{page_size}
+    </select>
+
+</mapper>

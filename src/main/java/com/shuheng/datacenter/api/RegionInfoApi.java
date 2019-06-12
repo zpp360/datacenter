@@ -29,11 +29,6 @@ public class RegionInfoApi extends BaseApi {
         PageData pd = this.getPageInfo(pageNumber,pageSize);
         ApiData apiData = new ApiData();
         if(StringUtils.isNotBlank(timestamp)){
-            if(!DateUtil.isValidDate(timestamp)){
-                //日期不合法
-                apiData.setErrorCode(ApiConstants.CODE_204);
-                return apiData;
-            }
             pd.put("timestamp",timestamp);
         }
         try {

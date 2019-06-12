@@ -31,6 +31,14 @@ public class ApiConstants {
      * timestamp时间戳校验失败
      */
     public static final String CODE_205 = "205";
+    /**
+     * pageSize校验失败
+     */
+    public static final String CODE_206 = "206";
+    /**
+     * pageNumber校验失败
+     */
+    public static final String CODE_207 = "207";
 
 
 
@@ -42,6 +50,8 @@ public class ApiConstants {
         map.put("203", "token获取验证失败");
         map.put("204", "token验证失败");
         map.put("205", "timestamp时间戳校验失败");
+        map.put("206", "pageSize校验失败");
+        map.put("207", "pageNumber校验失败");
 
 
         ERROR_MAP = Collections.unmodifiableMap(map);

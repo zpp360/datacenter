@@ -25,15 +25,20 @@ public class BaseApi {
         if(StringUtils.isBlank(pageSize)){
             pageSize = this.pageSize;
         }
+        int pageSizeInt = Integer.parseInt(pageSize);
+        if(pageSizeInt>100){
+            //pageSize最大为100
+            pageSizeInt = 100;
+        }
         int start = 0;
         if (StringUtils.isNotBlank(pageNumber)) {
             int pageNum = Integer.parseInt(pageNumber);
             if(pageNum>0){
-                start = (pageNum-1)* Integer.parseInt(pageSize);
+                start = (pageNum-1)* pageSizeInt;
             }
         }
         pd.put("start", start);
-        pd.put("page_size", Integer.parseInt(pageSize));
+        pd.put("page_size", pageSizeInt);
         return pd;
     }
 

@@ -2,9 +2,138 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="VolunteerMapper">
-    <select id="listAll" parameterType="pd" resultType="pd">
-        select * from m_volunteer_organization
-
+    <select id="listVolunteer" parameterType="pd" resultType="pd">
+        select
+          t.volunteer_id,
+          t.user_id,
+          t.volunteer_love_hour,
+          t.volunteer_text,
+          t.volunteer_province,
+          t.volunteer_city,
+          t.volunteer_county,
+          t.volunteer_province_rank,
+          t.volunteer_city_rank,
+          t.create_time as update_time
+        from m_volunteer t
+        where t.volunteer_province = '16'
+        and t.volunteer_city = '171'
+        <if test="timestamp!=null and timestamp!=''">
+            AND t.create_time <![CDATA[ > ]]> #{timestamp}
+        </if>
+        limit #{start},#{page_size}
     </select>
+
+
+    <select id="listVolunteerOrg" parameterType="pd" resultType="pd">
+        SELECT
+          t.organization_id,
+          t.organization_name,
+          t.organization_img,
+          t.organization_province,
+          t.organization_city,
+          t.organization_county,
+          t.organization_street,
+          t.organization_community,
+          t.organization_address,
+          t.organization_time,
+          t.organization_linkman,
+          t.organization_phone,
+          t.organization_idcard,
+          t.organization_email,
+          t.organization_desc,
+          t.organization_love_hour,
+          t.organization_nation_rank,
+          t.organization_province_rank,
+          t.organization_city_rank,
+          t.organization_county_rank,
+          t.belong_unit_id,
+          t.del_flag,
+          t.create_time,
+          t.create_user,
+          t.update_time,
+          t.update_user,
+          t.organization_credit_code,
+          t.organization_legal_person,
+          t.organization_registered_capital,
+          t.organization_business_range,
+          t.organization_register_type,
+          t.association_id,
+          t.parent_id,
+          t.organization_path
+        from m_volunteer_organization t
+        where t.organization_province = '16'
+        and t.organization_city = '171'
+        and t.status = '1'
+        <if test="timestamp!=null and timestamp!=''">
+            AND t.update_time <![CDATA[ > ]]> #{timestamp}
+        </if>
+        limit #{start},#{page_size}
+    </select>
+
+    <select id="listVolunteerOrgRelation" parameterType="pd" resultType="pd">
+        select
+          r.volunteer_organization_id,
+          r.volunteer_id,
+          r.organization_id,
+          r.create_time,
+          r.charge_person,
+          r.job_president,
+          r.job_vice_president,
+          r.job_secretary_general,
+          r.job_captain,
+          r.job_vice_captain
+        from m_volunteer_organization_relation r,m_volunteer_organization o
+        where r.organization_id = o.organization_id
+        and o.del_flag = '0'
+        and o.status = '1'
+        and r.status = '1'
+        and o.organization_province = '16'
+        and o.organization_city = '171'
+        <if test="timestamp!=null and timestamp!=''">
+            AND r.create_time <![CDATA[ > ]]> #{timestamp}
+        </if>
+        limit #{start},#{page_size}
+    </select>
+
+    <select id="listVolunteerActive" parameterType="pd" resultType="pd">
+        select
+          t.active_id,
+          t.active_name,
+          t.active_img,
+          t.active_type,
+          t.active_province,
+          t.active_city,
+          t.active_county,
+          t.active_address,
+          t.active_lng,
+          t.active_lat,
+          t.sign_end_time,
+          t.active_start_time,
+          t.active_end_time,
+          t.active_count,
+          t.active_linkman,
+          t.active_linkman_phone,
+          t.active_organization,
+          t.active_desc,
+          t.active_love_hour,
+          t.love_hour_flag,
+          t.tipoff_flag,
+          t.del_flag,
+          t.create_user,
+          t.create_time,
+          t.update_user,
+          t.update_time
+        from m_volunteer_active t,m_volunteer_organization o
+        where t.active_organization = o.organization_id
+        and o.del_flag = '0'
+        and o.status = '1'
+        and o.organization_province = '16'
+        and o.organization_city = '171'
+        <if test="timestamp!=null and timestamp!=''">
+            AND t.update_time <![CDATA[ > ]]> #{timestamp}
+        </if>
+        limit #{start},#{page_size}
+    </select>
+
 
 </mapper>

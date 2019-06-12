@@ -45,7 +45,7 @@ public class TokenApi {
                 //验证成功,生成token
                 String accessToken = JwtUtil.sign(appId);
                 data.put("accessToken",accessToken);
-                data.put("expires_in",JwtUtil.EXPIRE_TIME);
+                data.put("expiresIn",JwtUtil.EXPIRE_TIME);
                 data.setErrorCode(ApiConstants.CODE_200);
             }else{
                 //验证失败

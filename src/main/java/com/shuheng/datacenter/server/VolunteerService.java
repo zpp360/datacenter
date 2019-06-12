@@ -12,9 +12,43 @@ public class VolunteerService{
     @Resource(name = "daoSupport")
     private DaoSupport dao;
 
-    public List<PageData> listAll(PageData pd) throws Exception {
-        List<PageData> list = (List<PageData>) dao.findForList("VolunteerMapper.listAll",pd);
+    /**
+     * 志愿者列表
+     * @param pd
+     * @return
+     * @throws Exception
+     */
+    public List<PageData> listVolunteer(PageData pd) throws Exception {
+        List<PageData> list = (List<PageData>) dao.findForList("VolunteerMapper.listVolunteer",pd);
         return list;
     }
 
+    /**
+     * 志愿者组织列表
+     * @param pd
+     * @return
+     */
+    public List<PageData> listVolunteerOrg(PageData pd) throws Exception {
+        List<PageData> list = (List<PageData>) dao.findForList("VolunteerMapper.listVolunteerOrg",pd);
+        return list;
+    }
+
+    /**
+     * 志愿者组织和志愿者关联列表
+     * @return
+     */
+    public List<PageData> listVolunteerOrgRelation(PageData pd) throws Exception {
+        List<PageData> list = (List<PageData>) dao.findForList("VolunteerMapper.listVolunteerOrgRelation",pd);
+        return list;
+    }
+
+    /**
+     * 志愿者活动列表
+     * @param pd
+     * @return
+     */
+    public List<PageData> listVolunteerActive(PageData pd) throws Exception {
+        List<PageData> list = (List<PageData>) dao.findForList("VolunteerMapper.listVolunteerActive",pd);
+        return list;
+    }
 }
