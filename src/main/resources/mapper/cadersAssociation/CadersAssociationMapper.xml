@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CadersAssociationMapper">
+    <select id="listCadersAssociation" parameterType="pd" resultType="pd">
+        select
+          *
+        from m_cadres_association t
+        where t.association_province = '16'
+        and t.association_city = '171'
+        <if test="timestamp!=null and timestamp!=''">
+            AND t.update_time <![CDATA[ > ]]> #{timestamp}
+        </if>
+        limit #{start},#{page_size}
+    </select>
+
+    <select id="listCadersAssociationUser" parameterType="pd" resultType="pd">
+        select
+          u.*
+        from m_cadres_association_user u,m_cadres_association t
+        where t.association_id = u.association_id
+        and t.association_province = '16'
+        and t.association_city = '171'
+        <if test="timestamp!=null and timestamp!=''">
+            AND u.update_time <![CDATA[ > ]]> #{timestamp}
+        </if>
+        limit #{start},#{page_size}
+    </select>
+    
+</mapper>

@@ -51,4 +51,14 @@ public class VolunteerService{
         List<PageData> list = (List<PageData>) dao.findForList("VolunteerMapper.listVolunteerActive",pd);
         return list;
     }
+
+    /**
+     * 志愿者活动报名详情列表
+     * @param pd
+     * @return
+     */
+    public List<PageData> listVolunteerActiveRelation(PageData pd) throws Exception {
+        List<PageData> list = (List<PageData>) dao.findForList("VolunteerMapper.listVolunteerActiveRelation",pd);
+        return list;
+    }
 }

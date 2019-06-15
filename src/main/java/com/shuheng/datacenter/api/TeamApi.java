@@ -4,7 +4,7 @@ import com.shuheng.datacenter.base.BaseApi;
 import com.shuheng.datacenter.entity.ApiConstants;
 import com.shuheng.datacenter.entity.ApiData;
 import com.shuheng.datacenter.entity.PageData;
-import com.shuheng.datacenter.server.VolunteerService;
+import com.shuheng.datacenter.server.TeamService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,81 +13,56 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * 志愿者接口
+ * 协会社团
  */
 @RestController
-public class VolunteerApi extends BaseApi {
+public class TeamApi extends BaseApi {
 
-    @Resource(name = "volunteerService")
-    private VolunteerService volunteerService;
+    @Resource(name = "teamService")
+    private TeamService teamService;
 
     /**
-     * 志愿者接口
+     * 协会社团列表接口
      * @param timestamp
      * @param pageNumber
      * @param pageSize
      * @return
      */
-    @PostMapping(value = "/volunteerList")
-    public ApiData listVolunteer(String timestamp,String pageNumber,String pageSize){
+    @PostMapping(value = "teamList")
+    public ApiData listTeam(String timestamp,String pageNumber,String pageSize){
         ApiData data = new ApiData();
         PageData pd = this.getPageInfo(pageNumber,pageSize);
         if(StringUtils.isNotBlank(timestamp)){
             pd.put("timestamp",timestamp);
         }
         try {
-            List<PageData> list = volunteerService.listVolunteer(pd);
+            List<PageData> list = teamService.listTeam(pd);
             data.setDatas(list);
             data.setErrorCode(ApiConstants.CODE_200);
         } catch (Exception e) {
             e.printStackTrace();
             data.setErrorCode(ApiConstants.CODE_202);
+            return data;
         }
         return data;
     }
 
     /**
-     * 志愿者组织接口
+     * 团队成员接口
      * @param timestamp
      * @param pageNumber
      * @param pageSize
      * @return
      */
-    @PostMapping(value = "/volunteerOrgList")
-    public ApiData listVolunteerOrg(String timestamp,String pageNumber,String pageSize){
+    @PostMapping(value = "teamUserList")
+    public ApiData listTeamUser(String timestamp,String pageNumber,String pageSize){
         ApiData data = new ApiData();
         PageData pd = this.getPageInfo(pageNumber,pageSize);
         if(StringUtils.isNotBlank(timestamp)){
             pd.put("timestamp",timestamp);
         }
         try {
-            List<PageData> list = volunteerService.listVolunteerOrg(pd);
-            data.setDatas(list);
-            data.setErrorCode(ApiConstants.CODE_200);
-        } catch (Exception e) {
-            e.printStackTrace();
-            data.setErrorCode(ApiConstants.CODE_202);
-            return data;
-        }
-        return data;
-    }
-
-    /**
-     * 志愿者组织和志愿者关联接口
-     * @param timestamp
-     * @param pageNumber
-     * @param pageSize
-     * @return
-     */
-    @PostMapping(value = "/volunteerOrgRelationList")
-    public ApiData listVolunteerOrgRelation(String timestamp,String pageNumber,String pageSize) {
-        ApiData data = new ApiData();
-        PageData pd = this.getPageInfo(pageNumber, pageSize);
-        if (StringUtils.isNotBlank(timestamp)) {
-            pd.put("timestamp", timestamp);
-        }
-        try {
-            List<PageData> list = volunteerService.listVolunteerOrgRelation(pd);
+            List<PageData> list = teamService.listTeamUser(pd);
             data.setDatas(list);
             data.setErrorCode(ApiConstants.CODE_200);
         } catch (Exception e) {
@@ -100,21 +75,21 @@ public class VolunteerApi extends BaseApi {
 
 
     /**
-     * 志愿者活动接口
+     * 团队招募列表接口
      * @param timestamp
      * @param pageNumber
      * @param pageSize
      * @return
      */
-    @PostMapping(value = "/volunteerActiveList")
-    public ApiData listVolunteerActive(String timestamp,String pageNumber,String pageSize) {
+    @PostMapping(value = "teamRecruitList")
+    public ApiData listTeamRecruit(String timestamp,String pageNumber,String pageSize){
         ApiData data = new ApiData();
-        PageData pd = this.getPageInfo(pageNumber, pageSize);
-        if (StringUtils.isNotBlank(timestamp)) {
-            pd.put("timestamp", timestamp);
+        PageData pd = this.getPageInfo(pageNumber,pageSize);
+        if(StringUtils.isNotBlank(timestamp)){
+            pd.put("timestamp",timestamp);
         }
         try {
-            List<PageData> list = volunteerService.listVolunteerActive(pd);
+            List<PageData> list = teamService.listTeamRecruit(pd);
             data.setDatas(list);
             data.setErrorCode(ApiConstants.CODE_200);
         } catch (Exception e) {
@@ -125,22 +100,23 @@ public class VolunteerApi extends BaseApi {
         return data;
     }
 
+
     /**
-     * 志愿者活动报名信息
+     * 团队招募报名人员列表
      * @param timestamp
      * @param pageNumber
      * @param pageSize
      * @return
      */
-    @PostMapping(value = "volunteerActiveRelationList")
-    public ApiData listVolunteerActiveRelation(String timestamp,String pageNumber,String pageSize) {
+    @PostMapping(value = "teamRecruitUserList")
+    public ApiData listTeamRecruitUser(String timestamp,String pageNumber,String pageSize){
         ApiData data = new ApiData();
-        PageData pd = this.getPageInfo(pageNumber, pageSize);
-        if (StringUtils.isNotBlank(timestamp)) {
-            pd.put("timestamp", timestamp);
+        PageData pd = this.getPageInfo(pageNumber,pageSize);
+        if(StringUtils.isNotBlank(timestamp)){
+            pd.put("timestamp",timestamp);
         }
         try {
-            List<PageData> list = volunteerService.listVolunteerActiveRelation(pd);
+            List<PageData> list = teamService.listTeamRecruitUser(pd);
             data.setDatas(list);
             data.setErrorCode(ApiConstants.CODE_200);
         } catch (Exception e) {

@@ -136,4 +136,19 @@
     </select>
 
 
+    <select id="listVolunteerActiveRelation" parameterType="pd" resultType="pd">
+        SELECT
+          r.*
+        FROM m_volunteer_active t,m_volunteer_organization o ,m_volunteer_active_relation r
+        where t.active_organization = o.organization_id
+        and o.del_flag = '0'
+        and o.status = '1'
+        and o.organization_province = '16'
+        and o.organization_city = '171'
+        <if test="timestamp!=null and timestamp!=''">
+            AND r.join_time <![CDATA[ > ]]> #{timestamp}
+        </if>
+        limit #{start},#{page_size}
+    </select>
+
 </mapper>

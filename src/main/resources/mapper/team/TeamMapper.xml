@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TeamMapper">
+
+    <select id="listTeam" parameterType="pd" resultType="pd">
+        SELECT
+          t.team_id,
+          t.team_name,
+          t.team_type,
+          t.team_time,
+          t.team_province,
+          t.team_city,
+          t.team_county,
+          t.team_street,
+          t.team_community,
+          t.unit_id,
+          t.app_user_id,
+          t.team_img,
+          t.team_video,
+          t.team_desc,
+          t.del_flag,
+          t.create_time,
+          t.create_user,
+          t.update_time,
+          t.update_user,
+          t.team_video_name,
+          t.team_push,
+          t.push_unit_id,
+          t.team_credit_code,
+          t.team_legal_person,
+          t.team_registered_capital,
+          t.team_business_range,
+          t.team_register_type
+        FROM m_team t
+        where t.team_province = '16'
+        and t.team_city = '171'
+        and t.status = '0'
+        <if test="timestamp!=null and timestamp!=''">
+            AND t.update_time <![CDATA[ > ]]> #{timestamp}
+        </if>
+        limit #{start},#{page_size}
+    </select>
+
+
+    <select id="listTeamUser" parameterType="pd" resultType="pd">
+        SELECT
+          u.team_user_id,
+          u.team_id,
+          u.user_id,
+          u.update_user,
+          u.update_time,
+          u.job_president,
+          u.job_vice_president,
+          u.job_secretary_general,
+          u.job_captain,
+          u.job_vice_captain
+        FROM m_team_user u,m_team t
+        where t.team_id = u.team_id
+        and t.team_province = '16'
+        and t.team_city = '171'
+        and t.status = '0'
+        <if test="timestamp!=null and timestamp!=''">
+            AND t.update_time <![CDATA[ > ]]> #{timestamp}
+        </if>
+        limit #{start},#{page_size}
+    </select>
+
+
+    <select id="listTeamRecruit" parameterType="pd" resultType="pd">
+        SELECT
+          r.*
+        FROM m_team_recruit r,m_team t
+        where r.team_id = t.team_id
+        and t.team_province = '16'
+        and t.team_city = '171'
+        and t.status = '0'
+        <if test="timestamp!=null and timestamp!=''">
+            AND r.update_time <![CDATA[ > ]]> #{timestamp}
+        </if>
+        limit #{start},#{page_size}
+    </select>
+
+    <select id="listTeamRecruitUser" parameterType="pd" resultType="pd">
+        SELECT
+          u.recruit_user_id,
+          u.recruit_id,
+          u.user_id,
+          u.insert_time
+        FROM m_team_recruit_user u,m_team_recruit r,m_team t
+        where u.recruit_id = r.recruit_id
+        and r.team_id = t.team_id
+        and t.team_province = '16'
+--         and t.team_city = '171'
+        and t.status = '0'
+        <if test="timestamp!=null and timestamp!=''">
+            AND u.insert_time <![CDATA[ > ]]> #{timestamp}
+        </if>
+        limit #{start},#{page_size}
+
+    </select>
+
+</mapper>
