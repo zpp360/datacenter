@@ -54,6 +54,7 @@ public class ScheduledTasks {
      */
     @Scheduled(cron = "0 30 0 * * ?")
     public void syncUnit() {
+        log.error("单位同步任务开始："+DateUtil.fomatDate(sdf.format(new Date())));
         Map<String,String> params = new HashMap<String, String>();
         String timestamp = "";
         try {
@@ -193,7 +194,7 @@ public class ScheduledTasks {
                 }
             }
 
-            log.error(DateUtil.fomatDate(sdf.format(new Date())+"单位操作结束"));
+            log.error("单位同步任务结束："+DateUtil.fomatDate(sdf.format(new Date())));
         }
     }
 
