@@ -2,9 +2,95 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="UnitMapper">
-    <select id="listAll" parameterType="pd" resultType="pd">
-        select * from m_volunteer_organization
+    <select id="batchSave" parameterType="java.util.List">
+      insert into m_unit_sync(
+        UNIT_ID,
+        UNIT_P_ID,
+        UNIT_NAME_FULL,
+        UNIT_NAME_ABBREVIATION,
+        unit_type,
+        PROVINCE,
+        CITY,
+        AREA,
+        street,
+        community,
+        UNIT_ADD,
+        unit_prop,
+        INSERT_USER,
+        INSERT_TIMESTAMP,
+        UPDATE_USER,
+        UPDATE_TIMESTAMP,
+        DEL_FLG
+      ) values
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+                #{item.unit_id},
+                #{item.unit_p_id},
+                #{item.unit_name_full},
+                #{item.unit_name_abbreviation},
+                #{item.unit_type},
+                #{item.province},
+                #{item.city},
+                #{item.area},
+                #{item.street},
+                #{item.community},
+                #{item.unit_add},
+                #{item.unit_prop},
+                'datacenter',
+                now(),
+                'datacenter',
+                now(),
+                '0'
+            )
+        </foreach>
 
     </select>
 
+    <select id="findById" parameterType="java.lang.String" resultType="pd">
+        select * from m_unit_sync t where t.del_flg = '0' and t.unit_id = #{unitId}
+    </select>
+
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";" >
+            update
+            m_unit_sync
+            <set>
+                <if test="item.unit_name_full != null and item.unit_name_full">
+                    unit_name_full = #{item.unit_name_full},
+                </if>
+                <if test="item.unit_name_abbreviation != null and item.unit_name_abbreviation">
+                    unit_name_abbreviation = #{item.unit_name_abbreviation},
+                </if>
+                <if test="item.unit_p_id != null and item.unit_p_id">
+                    unit_p_id = #{item.unit_p_id},
+                </if>
+                <if test="item.unit_type != null and item.unit_type">
+                    unit_type = #{item.unit_type},
+                </if>
+                <if test="item.province != null and item.province">
+                    province = #{item.province},
+                </if>
+                <if test="item.city != null and item.city">
+                    city = #{item.city},
+                </if>
+                <if test="item.area != null and item.area">
+                    area = #{item.area},
+                </if>
+                <if test="item.street != null and item.street">
+                    street = #{item.street},
+                </if>
+                <if test="item.community != null and item.community">
+                    community = #{item.community},
+                </if>
+                <if test="item.unit_add != null and item.unit_add">
+                    unit_add = #{item.unit_add},
+                </if>
+                <if test="item.unit_prop != null and item.unit_prop">
+                    unit_prop = #{item.unit_prop},
+                </if>
+                UPDATE_TIMESTAMP = now()
+            </set>
+            WHERE unit_id = #{item.unit_id}
+        </foreach>
+    </update>
 </mapper>
