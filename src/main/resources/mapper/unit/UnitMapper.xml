@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="UnitMapper">
     <select id="batchSave" parameterType="java.util.List">
-      insert into m_unit_sync(
+      insert into m_unit(
         UNIT_ID,
         UNIT_P_ID,
         UNIT_NAME_FULL,
@@ -16,6 +16,7 @@
         community,
         UNIT_ADD,
         unit_prop,
+        unit_order,
         INSERT_USER,
         INSERT_TIMESTAMP,
         UPDATE_USER,
@@ -36,6 +37,7 @@
                 #{item.community},
                 #{item.unit_add},
                 #{item.unit_prop},
+                #{item.sortid},
                 'datacenter',
                 now(),
                 'datacenter',
@@ -47,13 +49,13 @@
     </select>
 
     <select id="findById" parameterType="java.lang.String" resultType="pd">
-        select * from m_unit_sync t where t.del_flg = '0' and t.unit_id = #{unitId}
+        select * from m_unit t where t.del_flg = '0' and t.unit_id = #{unitId}
     </select>
 
     <update id="batchUpdate" parameterType="java.util.List">
         <foreach collection="list" item="item" index="index" separator=";" >
             update
-            m_unit_sync
+            m_unit
             <set>
                 <if test="item.unit_name_full != null and item.unit_name_full">
                     unit_name_full = #{item.unit_name_full},
@@ -88,9 +90,33 @@
                 <if test="item.unit_prop != null and item.unit_prop">
                     unit_prop = #{item.unit_prop},
                 </if>
+                <if test="item.sortid != null and item.sortid">
+                    unit_order = #{item.sortid},
+                </if>
                 UPDATE_TIMESTAMP = now()
             </set>
             WHERE unit_id = #{item.unit_id}
+        </foreach>
+    </update>
+    <!--获取青岛市所有单位的-->
+    <select id="listByCity" parameterType="pd" resultType="pd">
+        select
+          *
+        from m_unit t
+        where t.del_flg = '0'
+        and t.city = '171'
+    </select>
+    <!--批量更新单位路径-->
+    <update id="batchUpdateUnitPath" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";" >
+            update
+            m_unit
+            <set>
+                <if test="item.unit_path != null and item.unit_path">
+                    unit_path = #{item.unit_path}
+                </if>
+            </set>
+            WHERE unit_id = #{item.UNIT_ID}
         </foreach>
     </update>
 </mapper>

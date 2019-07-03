@@ -24,4 +24,21 @@ public class UnitService {
     public void batchUpdate(List<Unit> list) throws Exception {
         dao.update("UnitMapper.batchUpdate",list);
     }
+
+    /**
+     * 获取青岛所有单位
+     * @param param
+     * @return
+     */
+    public List<PageData> listByCity(PageData param) throws Exception {
+        return (List<PageData>) dao.findForList("UnitMapper.listByCity",param);
+    }
+
+    /**
+     * 批量更新unit_path
+     * @param unitList
+     */
+    public void batchUpdateUnitPath(List<PageData> unitList) throws Exception {
+        dao.update("UnitMapper.batchUpdateUnitPath",unitList);
+    }
 }

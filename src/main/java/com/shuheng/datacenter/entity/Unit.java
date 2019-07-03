@@ -1,5 +1,7 @@
 package com.shuheng.datacenter.entity;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 
 public class Unit implements Serializable{
@@ -35,6 +37,8 @@ public class Unit implements Serializable{
 
     private String update_time;
 
+    private String sortid;
+
     public String getUpdate_time() {
         return update_time;
     }
@@ -61,6 +65,9 @@ public class Unit implements Serializable{
     }
 
     public String getUnit_name_abbreviation() {
+        if(StringUtils.isBlank(unit_name_abbreviation)){
+            return unit_name_full;
+        }
         return unit_name_abbreviation;
     }
 
@@ -125,19 +132,19 @@ public class Unit implements Serializable{
     }
 
     public String getUnit_prop() {
-        if(this.unit_prop=="1"){
-            return "jg";
+        if("1".equals(this.unit_prop)){
+            return "JG";
         }
-        if(this.unit_prop=="2"){
-            return "sydw";
+        if("2".equals(this.unit_prop)){
+            return "SYDW";
         }
-        if(this.unit_prop=="3"){
-            return "qy";
+        if("3".equals(this.unit_prop)){
+            return "QY";
         }
-        if(this.unit_prop=="4"){
-            return "gx";
+        if("4".equals(this.unit_prop)){
+            return "GX";
         }
-        return "jg";
+        return "JG";
     }
 
     public void setUnit_prop(String unit_prop) {
@@ -160,5 +167,13 @@ public class Unit implements Serializable{
 
     public void setUnit_id(String unit_id) {
         this.unit_id = unit_id;
+    }
+
+    public String getSortid() {
+        return sortid;
+    }
+
+    public void setSortid(String sortid) {
+        this.sortid = sortid;
     }
 }
