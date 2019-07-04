@@ -41,4 +41,21 @@ public class UnitService {
     public void batchUpdateUnitPath(List<PageData> unitList) throws Exception {
         dao.update("UnitMapper.batchUpdateUnitPath",unitList);
     }
+
+    /**
+     * 查询单位下APP用户数量
+     * @param unitId
+     * @return
+     */
+    public long countAppUserByUnitId(String unitId) throws Exception {
+        return (long) dao.findForObject("UnitMapper.countAppUserByUnitId",unitId);
+    }
+
+    /**
+     * 删除单位
+     * @param delList
+     */
+    public void batchDelete(List<Unit> delList) throws Exception {
+        dao.delete("UnitMapper.batchDelete",delList);
+    }
 }

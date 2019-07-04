@@ -48,6 +48,13 @@ public class User implements Serializable {
 
     private String del_flag;
 
+    private String report_flag;
+
+    private String phone_type;
+
+    private String update_time;
+
+
 
     public String getUser_id() {
         return user_id;
@@ -89,8 +96,18 @@ public class User implements Serializable {
         this.mobilephone = mobilephone;
     }
 
+    /**
+     * 数据中心返回值201为离休202为退休
+     * @return
+     */
     public String getUser_type() {
-        return user_type;
+        if("201".equals(this.user_type)){
+            return "0";
+        }
+        if("202".equals(this.user_type)){
+            return "1";
+        }
+        return "1";
     }
 
     public void setUser_type(String user_type) {
@@ -215,5 +232,29 @@ public class User implements Serializable {
 
     public void setDel_flag(String del_flag) {
         this.del_flag = del_flag;
+    }
+
+    public String getReport_flag() {
+        return report_flag;
+    }
+
+    public void setReport_flag(String report_flag) {
+        this.report_flag = report_flag;
+    }
+
+    public String getPhone_type() {
+        return phone_type;
+    }
+
+    public void setPhone_type(String phone_type) {
+        this.phone_type = phone_type;
+    }
+
+    public String getUpdate_time() {
+        return update_time;
+    }
+
+    public void setUpdate_time(String update_time) {
+        this.update_time = update_time;
     }
 }

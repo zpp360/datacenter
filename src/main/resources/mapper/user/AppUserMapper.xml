@@ -42,4 +42,156 @@
         limit #{start},#{page_size}
     </select>
 
+    <!--根据id查询-->
+    <select id="findById" parameterType="java.lang.String" resultType="pd">
+        select
+          *
+        from  m_user t
+        where t.del_flag = '0'
+        and t.user_id = #{userId}
+    </select>
+    <!--批量插入-->
+    <insert id="batchSave" parameterType="java.util.List">
+        insert into m_user(
+          user_id,
+          user_phone,
+          user_name,
+          user_sex,
+          user_birthday,
+          user_id_number,
+          user_province,
+          user_city,
+          user_county,
+          user_street,
+          user_community,
+          user_address,
+          user_type,
+          user_unit,
+          user_mz,
+          user_department,
+          user_job,
+          is_party,
+          user_join_party_time,
+          user_education,
+          user_status,
+          del_flag,
+          user_regist_time,
+          insert_user,
+          insert_time,
+          update_user,
+          update_time,
+          phone_type
+        ) values
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.user_id},
+            #{item.mobilephone},
+            #{item.user_name},
+            #{item.gender},
+            STR_TO_DATE(#{item.birthday},'%Y%m%d%H%i%s'),
+            #{item.card_number},
+            #{item.province},
+            #{item.city},
+            #{item.area},
+            #{item.street},
+            #{item.community},
+            #{item.address},
+            #{item.user_type},
+            #{item.unit_id},
+            #{item.nation},
+            NULL ,
+            #{item.position},
+            #{item.isdy},
+            STR_TO_DATE(#{item.rd_time},'%Y%m%d%H%i%s'),
+            #{item.education},
+            '1',
+            '0',
+            now(),
+            'datacenter',
+            now(),
+            'datacenter',
+            now(),
+            #{item.phone_type}
+            )
+        </foreach>
+
+    </insert>
+
+    <!--批量更新-->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";" >
+            update
+            m_user
+            <set>
+                <if test="item.mobilephone != null and item.mobilephone">
+                    user_phone = #{item.mobilephone},
+                </if>
+                <if test="item.user_name != null and item.user_name">
+                    user_name = #{item.user_name},
+                </if>
+                <if test="item.gender != null and item.gender">
+                    user_sex = #{item.gender},
+                </if>
+                <if test="item.birthday != null and item.birthday">
+                    user_birthday = #{item.birthday},
+                </if>
+                <if test="item.card_number != null and item.card_number">
+                    user_id_number = #{item.card_number},
+                </if>
+                <if test="item.user_type != null and item.user_type">
+                    user_type = #{item.user_type},
+                </if>
+                <if test="item.unit_id != null and item.unit_id">
+                    user_unit = #{item.unit_id},
+                </if>
+                <if test="item.nation != null and item.nation">
+                    user_mz = #{item.nation},
+                </if>
+                <if test="item.position != null and item.position">
+                    user_job = #{item.position},
+                </if>
+                <if test="item.isdy != null and item.isdy">
+                    is_party = #{item.isdy},
+                </if>
+                <if test="item.rd_time != null and item.rd_time">
+                    user_join_party_time = #{item.rd_time},
+                </if>
+                <if test="item.education != null and item.education">
+                    user_education = #{item.education},
+                </if>
+                <if test="item.phone_type != null and item.phone_type">
+                    phone_type = #{item.phone_type},
+                </if>
+                update_time = now()
+            </set>
+            WHERE user_id = #{item.user_id}
+        </foreach>
+
+    </update>
+    <!--批量删除-->
+    <delete id="batchDel" parameterType="java.util.List">
+        delete from m_user where user_id in (
+        <foreach collection="list" item="item" index="index" separator=",">
+            item.user_id
+        </foreach>
+        )
+    </delete>
+
+    <!--根据手机号查询-->
+    <select id="findByPhone" parameterType="java.lang.String" resultType="pd">
+        select
+          *
+        from m_user t
+        where t.del_flag = '0'
+        and t.user_phone = #{mobilephone}
+    </select>
+
+    <!--根据身份证号码查询-->
+    <select id="findByCardNumber" parameterType="java.lang.String" resultType="pd">
+        select
+          *
+        from m_user t
+        where t.del_flag = '0'
+        and t.user_id_number = #{mobilephone}
+    </select>
 </mapper>

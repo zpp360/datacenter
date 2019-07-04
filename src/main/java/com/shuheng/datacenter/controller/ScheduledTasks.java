@@ -4,10 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.shuheng.datacenter.entity.PageData;
 import com.shuheng.datacenter.entity.Unit;
 import com.shuheng.datacenter.entity.User;
+import com.shuheng.datacenter.server.AppUserService;
 import com.shuheng.datacenter.server.SyncDataversionService;
 import com.shuheng.datacenter.server.UnitService;
 import com.shuheng.datacenter.utils.Const;
+import com.shuheng.datacenter.utils.DESUtil;
 import com.shuheng.datacenter.utils.DateUtil;
+import com.shuheng.datacenter.utils.ValidateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,12 +56,15 @@ public class ScheduledTasks {
     @Resource(name = "syncDataversionService")
     private SyncDataversionService syncDataversionService;
 
+    @Resource(name = "appUserService")
+    private AppUserService appUserService;
+
     /**
      * 从数据中心增量获取单位
      * 增量获取
      * 每天半夜12点30分执行一次（注意日期域为0不是24）
      */
-    @Scheduled(cron = "0 30 0 * * ?")
+    @Scheduled(cron = "0 40 0 * * ?")
     @GetMapping(value = "/syncUnit")
     public void syncUnit() {
         log.error("单位同步任务开始："+DateUtil.fomatDate(sdf.format(new Date())));
@@ -87,16 +93,20 @@ public class ScheduledTasks {
                 return;
             }
             log.error(DateUtil.fomatDate(sdf.format(new Date())+"单位操作开始"));
-            List<Unit> insertList = new ArrayList<Unit>();
-            List<Unit> updateList = new ArrayList<Unit>();
+            List<Unit> insertList = new ArrayList<>();
+            List<Unit> updateList = new ArrayList<>();
+            List<Unit> delList = new ArrayList<>();
             for (int i=0;i<list.size();i++){
                 Unit unit = list.get(i);
                 if(unit==null || unit.getUnit_id()=="-1"){
                     continue;
                 }
-                if(!"0".equals(unit.getDel_flag())){
-                    System.out.println(unit.getDel_flag());
+                if("1".equals(unit.getDel_flag())){
                     //del_flag不为0
+                    delList.add(unit);
+                    continue;
+                }
+                if(!"0".equals(unit.getDel_flag())){
                     log.error("单位错误，del_flag不为0，单位id:"+unit.getUnit_id()+",单位名称:"+unit.getUnit_name_full());
                     continue;
                 }
@@ -195,6 +205,11 @@ public class ScheduledTasks {
                 }
             }
 
+            //删除del_flag为1的单位
+            if(delList!=null && delList.size()>0){
+                deleteUnit(delList);
+            }
+
             //更新版本号
             if(StringUtils.isNotBlank(timestamp)){
                 try {
@@ -206,6 +221,35 @@ public class ScheduledTasks {
             }
 
             log.error("单位同步任务结束："+DateUtil.fomatDate(sdf.format(new Date())));
+        }
+    }
+
+    /**
+     * 删除单位，应该先进行同步用户的任务，在进行同步单位的任务，要不会因为单位下存在用户导致单位删除失败
+     * @param delList
+     */
+    private void deleteUnit(List<Unit> delList) {
+        for (int i=0; i<delList.size(); i++){
+            Unit unit = delList.get(i);
+            long count = 0;
+            try {
+                count = unitService.countAppUserByUnitId(unit.getUnit_id());
+            } catch (Exception e) {
+                log.error("根据单位id查询APP用户数量出错");
+                e.printStackTrace();
+            }
+            if(count>0){
+                log.error("单位删除失败，因为单位下存在APP用户。单位id:"+unit.getUnit_id()+",单位名称:"+unit.getUnit_name_full());
+                delList.remove(unit);
+            }
+        }
+        try {
+            if(delList.size()>0){
+                unitService.batchDelete(delList);
+            }
+        } catch (Exception e) {
+            log.error("批量删除单位执行出错。");
+            e.printStackTrace();
         }
     }
 
@@ -232,7 +276,7 @@ public class ScheduledTasks {
      * 更新单位的unit_path
      * 每天半夜12:40分执行,确保在单位同步完成之后再执行
      */
-    @Scheduled(cron = "0 40 0 * * ?")
+    @Scheduled(cron = "0 50 0 * * ?")
     @GetMapping(value = "updateUnitPath")
     public void updateUnitPath(){
         log.error("单位上下级路径更新任务开始："+DateUtil.fomatDate(sdf.format(new Date())));
@@ -315,7 +359,7 @@ public class ScheduledTasks {
     /**
      * 同步人员
      */
-    @Scheduled(cron = "0 50 0 * * ?")
+    @Scheduled(cron = "0 30 0 * * ?")
     @GetMapping(value = "syncUser")
     public void syncUser(){
         log.error("人员同步任务开始："+DateUtil.fomatDate(sdf.format(new Date())));
@@ -343,16 +387,237 @@ public class ScheduledTasks {
                 return;
             }
             log.error(DateUtil.fomatDate(sdf.format(new Date())+"人员操作开始"));
-            List<User> insertList = new ArrayList<User>();
-            List<User> updateList = new ArrayList<User>();
+            List<User> insertList = new ArrayList<>();
+            List<User> updateList = new ArrayList<>();
+            List<User> delList = new ArrayList<>();
             for (int i=0; i < list.size(); i++){
+                User user = list.get(i);
+
+                if("1".equals(user.getDel_flag())){
+                    //删除用户
+                    delList.add(user);
+                    continue;
+                }
+
+                if(!"0".equals(user.getDel_flag())){
+                    log.info("人员错误，人员del_flag不为0，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                    continue;
+                }
+
+                if(StringUtils.isBlank(user.getUser_id())){
+                    log.info("人员错误，人员ID不能为空，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                    continue;
+                }
+
+                if(StringUtils.isBlank(user.getUser_name())){
+                    log.info("人员错误，人员姓名不能为空，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                    continue;
+                }
+
+                if(StringUtils.isBlank(user.getUnit_id())){
+                    log.info("人员错误，人员单位不能为空，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                    continue;
+                }
+
+                if(StringUtils.isBlank(user.getUser_type())){
+                    log.info("人员错误，人员类型不能为空，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                    continue;
+                }
+
+                if(StringUtils.isBlank(user.getReport_flag())){
+                    log.info("人员错误，人员居住地报到标识不能为空，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                    continue;
+                }
+
+                //设置phone_type
+                if(StringUtils.isNotBlank(user.getMobilephone()) && ValidateUtils.Mobile(user.getMobilephone())){
+                    user.setPhone_type("0");
+                }else{
+                    user.setPhone_type("1");
+                }
+
+                if(StringUtils.isNotBlank(user.getMobilephone())){
+                    //手机号不为空，加密
+                    try {
+                        user.setMobilephone(DESUtil.encode(user.getMobilephone()));
+                    } catch (Exception e) {
+                        log.error("人员手机号加密错误，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                        e.printStackTrace();
+                    }
+                }
+
+                if(StringUtils.isNotBlank(user.getCard_number())){
+                    //身份证号码不为空，加密
+                    try {
+                        user.setCard_number(DESUtil.encode(user.getCard_number()));
+                    } catch (Exception e) {
+                        log.error("人员身份证号码加密错误，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                        e.printStackTrace();
+                    }
+                }
+
+                //处理生日和入党时间，如果是6位的。补上01
+                if(StringUtils.isNotBlank(user.getBirthday())){
+                    if(user.getBirthday().length()==6){
+                        user.setBirthday(user.getBirthday()+"01");
+                    }
+                    if(user.getBirthday().length()==8 && user.getBirthday().endsWith("00")){
+                        user.setBirthday(user.getBirthday().substring(0,6)+"01");
+                    }
+                }
+                if(StringUtils.isNotBlank(user.getRd_time())){
+                    if(user.getRd_time().length()==6){
+                        user.setRd_time(user.getRd_time()+"01");
+                    }
+                    if(user.getRd_time().length()==8 && user.getRd_time().endsWith("00")){
+                        user.setRd_time(user.getRd_time().substring(0,6)+"01");
+                    }
+                }
+
+                //返回值没有问题，迭代timestamp，并存储timestamp
+                if (StringUtils.isNotBlank(user.getUpdate_time())){
+                    if(Long.parseLong(user.getUpdate_time()) > Long.parseLong(timestamp)){
+                        timestamp = user.getUpdate_time();
+                    }
+                }
+
+                try {
+                    PageData pd = appUserService.findById(user.getUser_id());
+                    if(pd!=null){
+                        updateList.add(user);
+                    }else{
+                        insertList.add(user);
+                    }
+                } catch (Exception e) {
+                    log.error("查询人员信息出错");
+                    e.printStackTrace();
+                }
+
+                if(insertList.size()>200){
+                    try {
+                        userBatchSave(insertList);
+                    } catch (Exception e) {
+                        log.error("批量保存用户出错");
+                        e.printStackTrace();
+                    }
+                }
+                if(updateList.size()>200){
+                    try {
+                        appUserService.batchUpdate(updateList);
+                    } catch (Exception e) {
+                        log.error("批量更新用户出错");
+                        e.printStackTrace();
+                    }
+                }
 
             }
+            if(delList!=null && delList.size()>0){
+                try {
+                    appUserService.batchDel(delList);
+                } catch (Exception e) {
+                    log.error("批量删除用户出错");
+                    e.printStackTrace();
+                }
+            }
 
+            if(insertList!=null && insertList.size()>0){
+                try {
+                    userBatchSave(insertList);
+                } catch (Exception e) {
+                    log.error("批量保存用户出错");
+                    e.printStackTrace();
+                }
+            }
+
+            if(updateList!=null && updateList.size()>0){
+                try {
+                    appUserService.batchUpdate(updateList);
+                } catch (Exception e) {
+                    log.error("批量更新用户出错");
+                    e.printStackTrace();
+                }
+            }
+
+            //更新版本号
+            if(StringUtils.isNotBlank(timestamp)){
+                try {
+                    syncDataversionService.updateDataVersion(systemName,methodUser,timestamp);
+                } catch (Exception e) {
+                    log.error("单位同步更新版本号出错");
+                    e.printStackTrace();
+                }
+            }
         }
+
+        log.error("单位同步任务结束："+DateUtil.fomatDate(sdf.format(new Date())));
+    }
+
+    /**
+     * 批量插入用户
+     * @param list
+     */
+    private void userBatchSave(List<User> list) throws Exception {
+        List<User> repetList = new ArrayList<>();
+        for(int i = 0; i<list.size(); i++){
+            User user = list.get(i);
+            //检查是否存在此手机号
+            if(StringUtils.isNotBlank(user.getMobilephone())){
+                try {
+                    PageData pd = appUserService.findByPhone(user.getMobilephone());
+                    if(pd!=null){
+                        log.error("人员手机号出现重复，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                        repetList.add(user);
+                        continue;
+                    }
+                    //继续判断列表中是否有重复手机号的，避免批量插入的时候插入重复的报错
+                    for (int j = i+1; j< list.size(); j++ ){
+                        if(user.getMobilephone().equals(list.get(j).getMobilephone())){
+                            log.error("人员手机号出现重复，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                            repetList.add(user);
+                            continue;
+                        }
+                    }
+                } catch (Exception e) {
+                    log.error("根据手机号查询人员出错");
+                    e.printStackTrace();
+                }
+
+            }
+            //检查身份证号码是否存在
+            if(StringUtils.isNotBlank(user.getCard_number())){
+                try {
+                    PageData pd = appUserService.findByCardNumber(user.getCard_number());
+                    if(pd!=null){
+                        log.error("人员身份证号出现重复，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                        repetList.add(user);
+                        continue;
+                    }
+                    //继续判断列表中是否有重复手机号的，避免批量插入的时候插入重复的报错
+                    for (int j = i+1; j< list.size(); j++ ){
+                        if(user.getCard_number().equals(list.get(j).getCard_number())){
+                            log.error("人员身份证号出现重复，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                            repetList.add(user);
+                            continue;
+                        }
+                    }
+                } catch (Exception e) {
+                    log.error("根据身份证号查询人员出错");
+                    e.printStackTrace();
+                }
+            }
+        }
+        list.removeAll(repetList);
+        appUserService.batchSave(list);
+        list.clear();
+    }
+
+    private void userBatchUpdate(List<User> list) throws Exception {
+        appUserService.batchUpdate(list);
+        list.clear();
     }
 
 }
+
 
 
 //        0 0 12 * * ? 每天12点触发

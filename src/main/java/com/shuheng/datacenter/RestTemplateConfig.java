@@ -21,8 +21,8 @@ public class RestTemplateConfig {
     @Bean
     public ClientHttpRequestFactory simpleClientHttpRequestFactory(){
         SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-        factory.setConnectTimeout(15000);   //连接超时时间
-        factory.setReadTimeout(5000);       //数据读取超时时间
+        factory.setConnectTimeout(50000);   //连接超时时间
+        factory.setReadTimeout(50000);       //数据读取超时时间
         return factory;
     }
 }

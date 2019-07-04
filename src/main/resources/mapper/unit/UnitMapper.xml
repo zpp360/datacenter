@@ -119,4 +119,16 @@
             WHERE unit_id = #{item.UNIT_ID}
         </foreach>
     </update>
+    <!--根据单位id查询单位下APP用户数量-->
+    <select id="countAppUserByUnitId" parameterType="java.lang.String" resultType="java.lang.Long">
+        select count(1) from m_user t where t.del_flag = '0' and t.user_unit =  #{unitId}
+    </select>
+    <!--批量删除单位-->
+    <delete id="batchDelete" parameterType="java.util.List">
+        delete from m_unit where unit_id in (
+        <foreach collection="list" item="item" index="index" separator=",">
+            item.UNIT_ID
+        </foreach>
+        )
+    </delete>
 </mapper>
