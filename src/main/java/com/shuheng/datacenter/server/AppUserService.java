@@ -68,4 +68,11 @@ public class AppUserService {
         return (PageData) dao.findForObject("AppUserMapper.findByCardNumber",cardNumber);
     }
 
+    /**
+     * 批量居住地报到
+     * @param reportList
+     */
+    public void batchReport(List<User> reportList) throws Exception {
+        dao.batchSave("AppUserMapper.batchReport",reportList);
+    }
 }

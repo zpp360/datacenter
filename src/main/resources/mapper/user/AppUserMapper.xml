@@ -172,7 +172,7 @@
     <delete id="batchDel" parameterType="java.util.List">
         delete from m_user where user_id in (
         <foreach collection="list" item="item" index="index" separator=",">
-            item.user_id
+            #{item.user_id}
         </foreach>
         )
     </delete>
@@ -194,4 +194,33 @@
         where t.del_flag = '0'
         and t.user_id_number = #{mobilephone}
     </select>
+    <!--批量居住地报到-->
+    <insert id="batchReport" parameterType="java.util.List">
+        insert into m_user_address_history(
+			user_id,
+			user_province,
+			user_city,
+			user_county,
+			user_street,
+			user_community,
+			user_address,
+			del_flag,
+			insert_time,
+			insert_user
+    	)values
+        <foreach collection="list" item="item" index="index" separator="," >
+            (
+            #{item.user_id},
+            #{item.province},
+            #{item.city},
+            #{item.area},
+            #{item.street},
+            #{item.community},
+            #{item.address},
+            '1',
+            now(),
+            'datacenter'
+            )
+        </foreach>
+    </insert>
 </mapper>

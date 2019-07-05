@@ -531,7 +531,7 @@ public class ScheduledTasks {
 
             if(updateList!=null && updateList.size()>0){
                 try {
-                    appUserService.batchUpdate(updateList);
+                    userBatchUpdate(updateList);
                 } catch (Exception e) {
                     log.error("批量更新用户出错");
                     e.printStackTrace();
@@ -553,11 +553,12 @@ public class ScheduledTasks {
     }
 
     /**
-     * 批量插入用户
+     * 批量插入用户，并插入居住地报到信息
      * @param list
      */
     private void userBatchSave(List<User> list) throws Exception {
         List<User> repetList = new ArrayList<>();
+        List<User> reportList = new ArrayList<>();
         for(int i = 0; i<list.size(); i++){
             User user = list.get(i);
             //检查是否存在此手机号
@@ -605,12 +606,28 @@ public class ScheduledTasks {
                     e.printStackTrace();
                 }
             }
+            //是否居住地报到了，如果居住地报到了存放到居住地报到列表，批量添加
+            if(StringUtils.isNotBlank(user.getReport_flag()) && "1".equals(user.getReport_flag()) && StringUtils.isNotBlank(user.getProvince()) &&
+                    StringUtils.isNotBlank(user.getCity()) && StringUtils.isNotBlank(user.getArea()) && StringUtils.isNotBlank(user.getStreet()) &&
+                    StringUtils.isNotBlank(user.getCommunity()) && StringUtils.isNotBlank(user.getAddress())){
+                reportList.add(user);
+            }
         }
         list.removeAll(repetList);
-        appUserService.batchSave(list);
+        if(list.size()>0){
+            appUserService.batchSave(list);
+        }
+        if(reportList.size()>0){
+            appUserService.batchReport(reportList);
+        }
         list.clear();
     }
 
+    /**
+     * 更新用户，只更新基本信息，居住地报到信息不更新
+     * @param list
+     * @throws Exception
+     */
     private void userBatchUpdate(List<User> list) throws Exception {
         appUserService.batchUpdate(list);
         list.clear();
