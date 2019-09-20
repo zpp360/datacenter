@@ -4,7 +4,7 @@
 <mapper namespace="AppUserMapper">
     <select id="listUser" parameterType="pd" resultType="pd">
         SELECT
-          t.user_id,
+          if(d.datacenter_id is null,t.user_id,d.datacenter_id ) as user_id,
           t.user_phone,
           t.user_name,
           t.user_pic,
@@ -30,10 +30,14 @@
           t.user_education,
           t.person_group,
           t.user_number,
-          t.user_desc
-        FROM  m_user t,m_unit n
-        where t.user_unit = n.unit_id
-        and n.del_flg = '0'
+          t.user_desc,
+          t.user_die
+        FROM  m_user t
+        inner join m_unit n
+        on t.user_unit = n.unit_id
+        LEFT JOIN m_user_datacenter d
+        on t.user_id = d.user_id
+        where n.del_flg = '0'
         and n.city = '171'
         and (t.user_status = '1' or t.user_status = '3')
         <if test="timestamp!=null and timestamp!=''">
@@ -80,7 +84,9 @@
           insert_time,
           update_user,
           update_time,
-          phone_type
+          phone_type,
+          office_phone,
+          person_group
         ) values
         <foreach collection="list" item="item" index="index" separator="," >
             (
@@ -111,7 +117,9 @@
             now(),
             'datacenter',
             now(),
-            #{item.phone_type}
+            #{item.phone_type},
+            #{item.home_telphone},
+            #{item.person_group}
             )
         </foreach>
 
@@ -162,6 +170,13 @@
                 <if test="item.phone_type != null and item.phone_type">
                     phone_type = #{item.phone_type},
                 </if>
+                <if test="item.home_telphone != null and item.home_telphone">
+                    office_phone = #{item.home_telphone},
+                </if>
+                <if test="item.person_group != null and item.person_group">
+                    person_group = #{item.person_group},
+                </if>
+                update_user = 'datacenter',
                 update_time = now()
             </set>
             WHERE user_id = #{item.user_id}
@@ -223,4 +238,36 @@
             )
         </foreach>
     </insert>
+
+    <select id="findByIdAndDelFlag" parameterType="java.lang.String" resultType="java.lang.Long">
+        select
+          count(1)
+        from  m_user t
+        where t.del_flag = '1'
+        and t.user_id = #{userId}
+    </select>
+
+    <delete id="delDelFlagUser" parameterType="java.lang.String">
+        delete from m_user where del_flag = '1' and user_id = #{userId}
+    </delete>
+
+    <select id="listAddUser" parameterType="pd" resultType="pd">
+        SELECT
+            t.user_id,
+            t.user_phone,
+            t.user_name,
+            t.user_id_number,
+            t.user_unit,
+            n.unit_name_full as unit_name,
+            t.user_type
+        FROM  m_user t
+        inner join m_unit n
+        on t.user_unit = n.unit_id
+        where n.del_flg = '0'
+        and n.city = '171'
+        and (t.user_status = '1' or t.user_status = '3')
+        AND DATE_FORMAT(t.insert_time,'%Y-%m-%d') = #{date}
+        and t.insert_user <![CDATA[ <> ]]> 'datacenter'
+        limit #{start},#{page_size}
+    </select>
 </mapper>

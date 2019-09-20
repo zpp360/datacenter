@@ -2,9 +2,11 @@ package com.shuheng.datacenter.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.shuheng.datacenter.entity.PageData;
+import com.shuheng.datacenter.entity.Region;
 import com.shuheng.datacenter.entity.Unit;
 import com.shuheng.datacenter.entity.User;
 import com.shuheng.datacenter.server.AppUserService;
+import com.shuheng.datacenter.server.RegionService;
 import com.shuheng.datacenter.server.SyncDataversionService;
 import com.shuheng.datacenter.server.UnitService;
 import com.shuheng.datacenter.utils.Const;
@@ -48,6 +50,9 @@ public class ScheduledTasks {
     @Value("${method_user}")
     private String methodUser;
 
+    @Value("${method_region}")
+    private String methodRegion;
+
     @Autowired
     private RestTemplate restTemplate;
     @Resource(name = "unitService")
@@ -58,6 +63,10 @@ public class ScheduledTasks {
 
     @Resource(name = "appUserService")
     private AppUserService appUserService;
+
+    @Resource(name = "regionService")
+    private RegionService regionService;
+
 
     /**
      * 从数据中心增量获取单位
@@ -89,10 +98,10 @@ public class ScheduledTasks {
             //将json数据使用FastJson转成对象
             List<Unit> list = JSON.parseArray(json,Unit.class);
             if(list==null || list.size()<1){
-                log.error(DateUtil.fomatDate(sdf.format(new Date())+"本次未获取到任何单位"));
+                log.error(DateUtil.fomatDate(sdf.format(new Date()))+"本次未获取到任何单位");
                 return;
             }
-            log.error(DateUtil.fomatDate(sdf.format(new Date())+"单位操作开始"));
+            log.error(DateUtil.fomatDate(sdf.format(new Date()))+"单位操作开始");
             List<Unit> insertList = new ArrayList<>();
             List<Unit> updateList = new ArrayList<>();
             List<Unit> delList = new ArrayList<>();
@@ -219,9 +228,8 @@ public class ScheduledTasks {
                     e.printStackTrace();
                 }
             }
-
-            log.error("单位同步任务结束："+DateUtil.fomatDate(sdf.format(new Date())));
         }
+        log.error("单位同步任务结束："+DateUtil.fomatDate(sdf.format(new Date())));
     }
 
     /**
@@ -362,7 +370,7 @@ public class ScheduledTasks {
     @Scheduled(cron = "0 30 0 * * ?")
     @GetMapping(value = "syncUser")
     public void syncUser(){
-        log.error("人员同步任务开始："+DateUtil.fomatDate(sdf.format(new Date())));
+        log.error("人员同步任务开始："+sdf.format(new Date()));
         Map<String,String> params = new HashMap<String, String>();
         String timestamp = "";
         try {
@@ -383,10 +391,10 @@ public class ScheduledTasks {
             String json = (String) resEntity.getBody();
             List<User> list = JSON.parseArray(json,User.class);
             if(list==null || list.size()<1){
-                log.error(DateUtil.fomatDate(sdf.format(new Date())+"本次未获取到任何人员"));
+                log.error("本次未获取到任何人员"+sdf.format(new Date()));
                 return;
             }
-            log.error(DateUtil.fomatDate(sdf.format(new Date())+"人员操作开始"));
+            log.error(sdf.format(new Date())+"人员操作开始");
             List<User> insertList = new ArrayList<>();
             List<User> updateList = new ArrayList<>();
             List<User> delList = new ArrayList<>();
@@ -427,6 +435,11 @@ public class ScheduledTasks {
                 if(StringUtils.isBlank(user.getReport_flag())){
                     log.info("人员错误，人员居住地报到标识不能为空，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
                     continue;
+                }
+
+                //home_telphone如果存在并且不是以0532开头，加上0532
+                if(StringUtils.isNotBlank(user.getHome_telphone()) && !user.getHome_telphone().startsWith("0532")){
+                    user.setHome_telphone("0532"+user.getHome_telphone());
                 }
 
                 //设置phone_type
@@ -549,7 +562,7 @@ public class ScheduledTasks {
             }
         }
 
-        log.error("单位同步任务结束："+DateUtil.fomatDate(sdf.format(new Date())));
+        log.error("人员同步任务结束："+DateUtil.fomatDate(sdf.format(new Date())));
     }
 
     /**
@@ -566,14 +579,14 @@ public class ScheduledTasks {
                 try {
                     PageData pd = appUserService.findByPhone(user.getMobilephone());
                     if(pd!=null){
-                        log.error("人员手机号出现重复，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                        log.error("人员手机号出现重复，用户id："+user.getUser_id() + ",手机号："+user.getMobilephone()+",用户姓名："+user.getUser_name());
                         repetList.add(user);
                         continue;
                     }
                     //继续判断列表中是否有重复手机号的，避免批量插入的时候插入重复的报错
                     for (int j = i+1; j< list.size(); j++ ){
                         if(user.getMobilephone().equals(list.get(j).getMobilephone())){
-                            log.error("人员手机号出现重复，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                            log.error("人员手机号出现重复(数据中心)，用户id："+user.getUser_id() + ",手机号："+user.getMobilephone()+",用户姓名："+user.getUser_name());
                             repetList.add(user);
                             continue;
                         }
@@ -589,14 +602,14 @@ public class ScheduledTasks {
                 try {
                     PageData pd = appUserService.findByCardNumber(user.getCard_number());
                     if(pd!=null){
-                        log.error("人员身份证号出现重复，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                        log.error("人员身份证号出现重复，用户id："+user.getUser_id() + ",身份证号码:"+user.getCard_number()+",用户姓名："+user.getUser_name());
                         repetList.add(user);
                         continue;
                     }
                     //继续判断列表中是否有重复手机号的，避免批量插入的时候插入重复的报错
                     for (int j = i+1; j< list.size(); j++ ){
                         if(user.getCard_number().equals(list.get(j).getCard_number())){
-                            log.error("人员身份证号出现重复，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
+                            log.error("人员身份证号出现重复(数据中心)，用户id："+user.getUser_id() + ",身份证号码:"+user.getCard_number()+",用户姓名："+user.getUser_name());
                             repetList.add(user);
                             continue;
                         }
@@ -611,6 +624,12 @@ public class ScheduledTasks {
                     StringUtils.isNotBlank(user.getCity()) && StringUtils.isNotBlank(user.getArea()) && StringUtils.isNotBlank(user.getStreet()) &&
                     StringUtils.isNotBlank(user.getCommunity()) && StringUtils.isNotBlank(user.getAddress())){
                 reportList.add(user);
+            }
+
+            //根据id查询用户，如果有直接物理删除，因为存在del_flag为1的情况，但是id一样，会导致插入出错
+            long delCount = appUserService.findByIdAndDelFlag(user.getUser_id());
+            if(delCount>0){
+                appUserService.delDelFlagUser(user.getUser_id());
             }
         }
         list.removeAll(repetList);
@@ -631,6 +650,168 @@ public class ScheduledTasks {
     private void userBatchUpdate(List<User> list) throws Exception {
         appUserService.batchUpdate(list);
         list.clear();
+    }
+
+
+    /**
+     * 同步region
+     */
+    @Scheduled(cron = "0 20 0 * * ?")
+    @GetMapping(value = "syncRegion")
+    public void syncRegion(){
+        log.error("region同步任务开始："+DateUtil.fomatDate(sdf.format(new Date())));
+        Map<String,String> params = new HashMap<String, String>();
+        String timestamp = "";
+        try {
+            timestamp = syncDataversionService.findDataVersionByNameAndMethod(systemName,methodRegion);
+            if(StringUtils.isBlank(timestamp)){
+                timestamp = "194505060000";
+            }
+        } catch (Exception e) {
+            log.error("region同步获取版本号出错");
+            e.printStackTrace();
+        }
+        params.put("updatetime",timestamp);
+        params.put("orgType","5");
+        params.put("flag","in");
+        ResponseEntity resEntity = restTemplate.getForEntity(url,String.class,params);
+        if(resEntity!=null && resEntity.getStatusCodeValue()== Const.SUCCESS_CODE) {
+            //响应成功，获取数据
+            String json = (String) resEntity.getBody();
+            List<Region> list = JSON.parseArray(json,Region.class);
+            if(list==null || list.size()<1){
+                log.error("本次未获取到任何region"+sdf.format(new Date()));
+                return;
+            }
+            log.error(DateUtil.fomatDate(sdf.format(new Date()))+"region操作开始");
+            List<Region> insertList = new ArrayList<>();
+            List<Region> updateList = new ArrayList<>();
+            List<Region> delList = new ArrayList<>();
+            for (int i=0; i < list.size(); i++){
+                Region region = list.get(i);
+
+                if("1".equals(region.getDel_flag())){
+                    //删除用户
+                    delList.add(region);
+                    continue;
+                }
+
+                if(!"0".equals(region.getDel_flag())){
+                    log.info("region错误，del_flag不为0，region_id："+region.getRegion_id() + ",region名称："+region.getRegion_name());
+                    continue;
+                }
+
+                if(StringUtils.isBlank(region.getRegion_id())){
+                    log.info("region错误，region_id不能为空，region_id："+region.getRegion_id() + ",region名称："+region.getRegion_name());
+                    continue;
+                }
+
+                if(StringUtils.isBlank(region.getRegion_name())){
+                    log.info("region错误，region_name不能为空，region_id："+region.getRegion_id() + ",region名称："+region.getRegion_name());
+                    continue;
+                }
+
+                if(StringUtils.isBlank(region.getParent_id())){
+                    log.info("region错误，parent_id不能为空，region_id："+region.getRegion_id() + ",region名称："+region.getRegion_name());
+                    continue;
+                }
+
+
+                //返回值没有问题，迭代timestamp，并存储timestamp
+                if (StringUtils.isNotBlank(region.getUpdate_time())){
+                    if(Long.parseLong(region.getUpdate_time()) > Long.parseLong(timestamp)){
+                        timestamp = region.getUpdate_time();
+                    }
+                }
+
+                try {
+                    PageData pd = regionService.findById(region.getRegion_id());
+                    if(pd!=null){
+                        updateList.add(region);
+                    }else{
+                        insertList.add(region);
+                    }
+                } catch (Exception e) {
+                    log.error("查询region信息出错");
+                    e.printStackTrace();
+                }
+
+                if(insertList.size()>200){
+                    try {
+                        regionBatchSave(insertList);
+                    } catch (Exception e) {
+                        log.error("批量保存region出错");
+                        e.printStackTrace();
+                    }
+                }
+                if(updateList.size()>200){
+                    try {
+                        regionService.batchUpdate(updateList);
+                        updateList.clear();
+                    } catch (Exception e) {
+                        log.error("批量更新region出错");
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+            if(delList!=null && delList.size()>0){
+                try {
+                    regionService.batchDel(delList);
+                    delList.clear();
+                } catch (Exception e) {
+                    log.error("批量删除region出错");
+                    e.printStackTrace();
+                }
+            }
+
+            if(insertList!=null && insertList.size()>0){
+                try {
+                    regionBatchSave(insertList);
+                } catch (Exception e) {
+                    log.error("批量保存region出错");
+                    e.printStackTrace();
+                }
+            }
+
+            if(updateList!=null && updateList.size()>0){
+                try {
+                    regionService.batchUpdate(updateList);
+                    updateList.clear();
+                } catch (Exception e) {
+                    log.error("批量更新region出错");
+                    e.printStackTrace();
+                }
+            }
+
+            //更新版本号
+            if(StringUtils.isNotBlank(timestamp)){
+                try {
+                    syncDataversionService.updateDataVersion(systemName,methodRegion,timestamp);
+                } catch (Exception e) {
+                    log.error("region同步更新版本号出错");
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        log.error("region同步任务结束："+DateUtil.fomatDate(sdf.format(new Date())));
+    }
+
+    /**
+     * 批量创建region
+     * @param insertList
+     */
+    private void regionBatchSave(List<Region> insertList) throws Exception {
+        for (int i=0; i< insertList.size();i++){
+            Region region = insertList.get(i);
+            Long count = regionService.findByIdAndDelFlag(region.getRegion_id());
+            if(count>0){
+                regionService.delDelFlagRegion(region.getRegion_id());
+            }
+        }
+        regionService.batchSave(insertList);
+        insertList.clear();
     }
 
 }

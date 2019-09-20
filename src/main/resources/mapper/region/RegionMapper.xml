@@ -19,4 +19,93 @@
         limit #{start},#{page_size}
     </select>
 
+
+    <select id="findById" parameterType="java.lang.String" resultType="pd">
+        select
+          *
+        from m_region_info t
+        where t.del_flg = '0'
+        and t.region_id = #{regionId}
+    </select>
+
+    <select id="findByIdAndDelFlag" parameterType="java.lang.String" resultType="pd">
+        select count(1) from m_region_info t where t.del_flg = '1'  and t.region_id = #{regionId}
+
+    </select>
+
+
+    <delete id="delDelFlagRegion" parameterType="java.lang.String">
+        delete from m_region_info where del_flg = '1'  and region_id = #{regionId}
+    </delete>
+
+    <insert id="batchSave" parameterType="java.util.List">
+        insert into m_user(
+          region_id,
+          region_code,
+          region_name,
+          parent_id,
+          region_level,
+          region_order,
+          province_office_flg,
+          del_flg,
+          insert_timestamp,
+          insert_user,
+          update_timestamp,
+          update_user
+        ) values
+        <foreach collection="list" item="item" index="index" separator="," >
+        (
+          #{region_id},
+          #{region_code},
+          #{region_name},
+          #{parent_id},
+          #{region_level},
+          #{region_order},
+          '0',
+          '0',
+          now(),
+          'datacenter',
+          now(),
+          'datacenter'
+        )
+        </foreach>
+    </insert>
+
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="list" item="item" index="index" separator=";" >
+            update
+            m_region_info
+            <set>
+                <if test="item.region_code != null and item.region_code">
+                    region_code = #{item.region_code},
+                </if>
+                <if test="item.region_name != null and item.region_name">
+                    region_name = #{item.region_name},
+                </if>
+                <if test="item.parent_id != null and item.parent_id">
+                    parent_id = #{item.parent_id},
+                </if>
+                <if test="item.region_level != null and item.region_level">
+                    region_level = #{item.region_level},
+                </if>
+                <if test="item.region_order != null and item.region_order">
+                    region_order = #{item.region_order},
+                </if>
+                <if test="item.office_flag != null and item.office_flag">
+                    province_office_flg = #{item.office_flag},
+                </if>
+                update_user = 'datacenter',
+                update_timestamp = now()
+            </set>
+            WHERE region_id = #{item.region_id}
+        </foreach>
+    </update>
+
+    <delete id="batchDel" parameterType="java.util.List">
+        delete from m_region_info where region_id in (
+        <foreach collection="list" item="item" index="index" separator=",">
+            #{item.region_id}
+        </foreach>
+        )
+    </delete>
 </mapper>

@@ -26,7 +26,9 @@ public class WebConfigurer implements WebMvcConfigurer{
         //excludePathPatterns  除了获取token都需要拦截
         registry.addInterceptor(tokenInterceptor).addPathPatterns("/**").excludePathPatterns("/token")
                 .excludePathPatterns("/syncUnit")
-                .excludePathPatterns("/syncUser");
+                .excludePathPatterns("/syncRegion")
+                .excludePathPatterns("/syncUser")
+                .excludePathPatterns("/updateUnitPath");
         registry.addInterceptor(commonParamsInterceptor).addPathPatterns("/**").excludePathPatterns("/token");
     }
 

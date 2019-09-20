@@ -54,7 +54,32 @@ public class User implements Serializable {
 
     private String update_time;
 
+    private String person_group; //0工作人员 1部门领导 2分管领导3主要领导
 
+    public String getPerson_group() {
+        //在职用户 分组
+        if("01".equals(this.user_type)){
+            //01分管领导
+            return "2";
+        }
+        if("02".equals(this.user_type)){
+            //02部门领导
+            return "1";
+        }
+        if("03".equals(this.user_type)){
+            //03具体工作者
+            return "0";
+        }
+        if("04".equals(this.user_type)){
+            // 04主要领导
+            return "3";
+        }
+        return "0";
+    }
+
+    public void setPerson_group(String person_group) {
+        this.person_group = person_group;
+    }
 
     public String getUser_id() {
         return user_id;
@@ -106,6 +131,9 @@ public class User implements Serializable {
         }
         if("202".equals(this.user_type)){
             return "1";
+        }
+        if("01".equals(this.user_type) || "02".equals(this.user_type) || "03".equals(this.user_type) || "04".equals(this.user_type)){
+            return "2";
         }
         return "1";
     }
@@ -219,7 +247,11 @@ public class User implements Serializable {
     }
 
     public String getHome_telphone() {
-        return home_telphone;
+        //在职用户返回办公电话，离退休不保存
+        if("01".equals(this.user_type) || "02".equals(this.user_type) || "03".equals(this.user_type) || "04".equals(this.user_type)){
+            return home_telphone;
+        }
+        return null;
     }
 
     public void setHome_telphone(String home_telphone) {

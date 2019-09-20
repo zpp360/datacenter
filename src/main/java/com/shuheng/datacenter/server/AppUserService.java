@@ -75,4 +75,31 @@ public class AppUserService {
     public void batchReport(List<User> reportList) throws Exception {
         dao.batchSave("AppUserMapper.batchReport",reportList);
     }
+
+    /**
+     * 根据id查询，del_flag为1
+     * @param userId
+     * @return
+     */
+    public Long findByIdAndDelFlag(String userId) throws Exception {
+        return (Long) dao.findForObject("AppUserMapper.findByIdAndDelFlag",userId);
+    }
+
+    /**
+     * 删除del_flag为1的
+     * @param userId
+     */
+    public void delDelFlagUser(String userId) throws Exception {
+        dao.delete("AppUserMapper.delDelFlagUser",userId);
+    }
+
+    /**
+     * 当日增加的用户
+     * @param pd
+     * @return
+     * @throws Exception
+     */
+    public List<PageData> listAddUser(PageData pd) throws Exception {
+        return (List<PageData>) dao.findForList("AppUserMapper.listAddUser",pd);
+    }
 }
