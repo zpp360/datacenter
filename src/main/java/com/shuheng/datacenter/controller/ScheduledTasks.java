@@ -579,14 +579,14 @@ public class ScheduledTasks {
                 try {
                     PageData pd = appUserService.findByPhone(user.getMobilephone());
                     if(pd!=null){
-                        log.error("人员手机号出现重复，用户id："+user.getUser_id() + ",手机号："+user.getMobilephone()+",用户姓名："+user.getUser_name());
+                        log.error("人员手机号出现重复，用户id："+user.getUser_id() + ",手机号："+DESUtil.decode(user.getMobilephone())+",用户姓名："+user.getUser_name());
                         repetList.add(user);
                         continue;
                     }
                     //继续判断列表中是否有重复手机号的，避免批量插入的时候插入重复的报错
                     for (int j = i+1; j< list.size(); j++ ){
                         if(user.getMobilephone().equals(list.get(j).getMobilephone())){
-                            log.error("人员手机号出现重复(数据中心)，用户id："+user.getUser_id() + ",手机号："+user.getMobilephone()+",用户姓名："+user.getUser_name());
+                            log.error("人员手机号出现重复(数据中心)，用户id："+user.getUser_id() + ",手机号："+DESUtil.decode(user.getMobilephone())+",用户姓名："+user.getUser_name());
                             repetList.add(user);
                             continue;
                         }
@@ -602,14 +602,14 @@ public class ScheduledTasks {
                 try {
                     PageData pd = appUserService.findByCardNumber(user.getCard_number());
                     if(pd!=null){
-                        log.error("人员身份证号出现重复，用户id："+user.getUser_id() + ",身份证号码:"+user.getCard_number()+",用户姓名："+user.getUser_name());
+                        log.error("人员身份证号出现重复，用户id："+user.getUser_id() + ",身份证号码:"+DESUtil.decode(user.getCard_number())+",用户姓名："+user.getUser_name());
                         repetList.add(user);
                         continue;
                     }
                     //继续判断列表中是否有重复手机号的，避免批量插入的时候插入重复的报错
                     for (int j = i+1; j< list.size(); j++ ){
                         if(user.getCard_number().equals(list.get(j).getCard_number())){
-                            log.error("人员身份证号出现重复(数据中心)，用户id："+user.getUser_id() + ",身份证号码:"+user.getCard_number()+",用户姓名："+user.getUser_name());
+                            log.error("人员身份证号出现重复(数据中心)，用户id："+user.getUser_id() + ",身份证号码:"+DESUtil.decode(user.getCard_number())+",用户姓名："+user.getUser_name());
                             repetList.add(user);
                             continue;
                         }
