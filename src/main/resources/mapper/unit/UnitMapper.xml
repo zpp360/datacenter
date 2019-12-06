@@ -55,7 +55,7 @@
     <update id="batchUpdate" parameterType="java.util.List">
         <foreach collection="list" item="item" index="index" separator=";" >
             update
-            m_unit_sync
+            m_unit
             <set>
                 <if test="item.unit_name_full != null and item.unit_name_full">
                     unit_name_full = #{item.unit_name_full},

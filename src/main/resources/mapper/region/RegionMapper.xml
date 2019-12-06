@@ -94,6 +94,9 @@
                 <if test="item.office_flag != null and item.office_flag">
                     province_office_flg = #{item.office_flag},
                 </if>
+                <if test="item.office_flag != null and item.office_flag">
+                    province_office_flg = #{item.office_flag},
+                </if>
                 update_user = 'datacenter',
                 update_timestamp = now()
             </set>

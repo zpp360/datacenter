@@ -98,10 +98,10 @@ public class ScheduledTasks {
             //将json数据使用FastJson转成对象
             List<Unit> list = JSON.parseArray(json,Unit.class);
             if(list==null || list.size()<1){
-                log.error(DateUtil.fomatDate(sdf.format(new Date()))+"本次未获取到任何单位");
+                log.error(sdf.format(new Date())+"本次未获取到任何单位");
                 return;
             }
-            log.error(DateUtil.fomatDate(sdf.format(new Date()))+"单位操作开始");
+            log.error(sdf.format(new Date())+"单位操作开始");
             List<Unit> insertList = new ArrayList<>();
             List<Unit> updateList = new ArrayList<>();
             List<Unit> delList = new ArrayList<>();
@@ -174,6 +174,16 @@ public class ScheduledTasks {
                     insertList.add(unit);
                 }
 
+                if(updateList.size()>200){
+                    //批量更新
+                    try {
+                        batchUpdate(updateList);
+                    } catch (Exception e) {
+                        log.error("批量更新出现错误");
+                        e.printStackTrace();
+                    }
+                }
+
                 if(insertList.size()>200){
                     //当数量大于200时执行批量插入
                     try {
@@ -184,24 +194,6 @@ public class ScheduledTasks {
                     }
                 }
 
-                if(updateList.size()>200){
-                    //批量更新
-                    try {
-                        batchUpdate(updateList);
-                    } catch (Exception e) {
-                        log.error("批量更新出现错误");
-                        e.printStackTrace();
-                    }
-                }
-            }
-            //再执行一遍更新插入操作，因为最后一次循环有不到200条的情况
-            if(insertList.size()>0){
-                try {
-                    batchInsert(insertList);
-                } catch (Exception e) {
-                    log.error("批量插入出现错误");
-                    e.printStackTrace();
-                }
             }
 
             //批量更新
@@ -219,6 +211,16 @@ public class ScheduledTasks {
                 deleteUnit(delList);
             }
 
+            //再执行一遍更新插入操作，因为最后一次循环有不到200条的情况
+            if(insertList.size()>0){
+                try {
+                    batchInsert(insertList);
+                } catch (Exception e) {
+                    log.error("批量插入出现错误");
+                    e.printStackTrace();
+                }
+            }
+
             //更新版本号
             if(StringUtils.isNotBlank(timestamp)){
                 try {
@@ -229,7 +231,7 @@ public class ScheduledTasks {
                 }
             }
         }
-        log.error("单位同步任务结束："+DateUtil.fomatDate(sdf.format(new Date())));
+        log.error("单位同步任务结束："+sdf.format(new Date()));
     }
 
     /**
@@ -287,7 +289,7 @@ public class ScheduledTasks {
     @Scheduled(cron = "0 50 0 * * ?")
     @GetMapping(value = "updateUnitPath")
     public void updateUnitPath(){
-        log.error("单位上下级路径更新任务开始："+DateUtil.fomatDate(sdf.format(new Date())));
+        log.error("单位上下级路径更新任务开始："+sdf.format(new Date()));
         List<PageData> updateList = new ArrayList<>(200);
         PageData param = new PageData();
         param.put("city","171");
@@ -303,17 +305,15 @@ public class ScheduledTasks {
             for (PageData unitPd : unitList){
                 String unitId = unitPd.getString("UNIT_ID");
                 String parentId = unitPd.getString("UNIT_P_ID");
+                String unitPath = unitId;
                 if(StringUtils.isNotBlank(parentId)){
-                    String unitPath = unitId;
-                    if(StringUtils.isNotBlank(parentId)){
-                        try {
-                            unitPath = getUnitPath(parentId,unitPath);
-                            unitPd.put("unit_path",unitPath);
-                            updateList.add(unitPd);
-                        } catch (Exception e) {
-                            log.error("单位上下级路径更新任务，获取单位路径出错");
-                            e.printStackTrace();
-                        }
+                    try {
+                        unitPath = getUnitPath(parentId,unitPath);
+                        unitPd.put("unit_path",unitPath);
+                        updateList.add(unitPd);
+                    } catch (Exception e) {
+                        log.error("单位上下级路径更新任务，获取单位路径出错");
+                        e.printStackTrace();
                     }
                 }
                 if(updateList.size()>200){
@@ -335,7 +335,7 @@ public class ScheduledTasks {
                 }
             }
         }
-        log.error("单位上下级路径更新任务结束："+DateUtil.fomatDate(sdf.format(new Date())));
+        log.error("单位上下级路径更新任务结束："+sdf.format(new Date()));
     }
 
     /**
@@ -357,7 +357,7 @@ public class ScheduledTasks {
      */
     private String getUnitPath(String pId, String unitPath) throws Exception {
         PageData pd = unitService.findById(pId);
-        if(pd!=null&&StringUtils.isNotBlank(pd.getString("UNIT_P_ID"))){
+        if(pd!=null){
             unitPath = pId + "|" + unitPath;
             return getUnitPath(pd.getString("UNIT_P_ID"),unitPath);
         }
@@ -369,7 +369,7 @@ public class ScheduledTasks {
      */
     @Scheduled(cron = "0 30 0 * * ?")
     @GetMapping(value = "syncUser")
-    public void syncUser(){
+    public void syncUser() throws Exception {
         log.error("人员同步任务开始："+sdf.format(new Date()));
         Map<String,String> params = new HashMap<String, String>();
         String timestamp = "";
@@ -379,7 +379,7 @@ public class ScheduledTasks {
                 timestamp = "194505060000";
             }
         } catch (Exception e) {
-            log.error("单位同步获取版本号出错");
+            log.error("用户同步获取版本号出错");
             e.printStackTrace();
         }
         params.put("updatetime",timestamp);
@@ -394,7 +394,7 @@ public class ScheduledTasks {
                 log.error("本次未获取到任何人员"+sdf.format(new Date()));
                 return;
             }
-            log.error(sdf.format(new Date())+"人员操作开始");
+            log.error("人员操作开始" + sdf.format(new Date()));
             List<User> insertList = new ArrayList<>();
             List<User> updateList = new ArrayList<>();
             List<User> delList = new ArrayList<>();
@@ -471,6 +471,9 @@ public class ScheduledTasks {
 
                 //处理生日和入党时间，如果是6位的。补上01
                 if(StringUtils.isNotBlank(user.getBirthday())){
+                    if(user.getBirthday().length()==4){
+                        user.setBirthday(user.getBirthday()+"0101");
+                    }
                     if(user.getBirthday().length()==6){
                         user.setBirthday(user.getBirthday()+"01");
                     }
@@ -479,6 +482,9 @@ public class ScheduledTasks {
                     }
                 }
                 if(StringUtils.isNotBlank(user.getRd_time())){
+                    if(user.getRd_time().length()==4){
+                        user.setRd_time(user.getRd_time()+"0101");
+                    }
                     if(user.getRd_time().length()==6){
                         user.setRd_time(user.getRd_time()+"01");
                     }
@@ -502,44 +508,28 @@ public class ScheduledTasks {
                         insertList.add(user);
                     }
                 } catch (Exception e) {
-                    log.error("查询人员信息出错");
+                    log.error("查询人员信息出错",e);
                     e.printStackTrace();
+                }
+
+                if(updateList.size()>200){
+                    try {
+                        appUserService.batchUpdate(updateList);
+                    } catch (Exception e) {
+                        log.error("批量更新用户出错",e);
+                        e.printStackTrace();
+                    }
                 }
 
                 if(insertList.size()>200){
                     try {
                         userBatchSave(insertList);
                     } catch (Exception e) {
-                        log.error("批量保存用户出错");
-                        e.printStackTrace();
-                    }
-                }
-                if(updateList.size()>200){
-                    try {
-                        appUserService.batchUpdate(updateList);
-                    } catch (Exception e) {
-                        log.error("批量更新用户出错");
+                        log.error("批量保存用户出错",e);
                         e.printStackTrace();
                     }
                 }
 
-            }
-            if(delList!=null && delList.size()>0){
-                try {
-                    appUserService.batchDel(delList);
-                } catch (Exception e) {
-                    log.error("批量删除用户出错");
-                    e.printStackTrace();
-                }
-            }
-
-            if(insertList!=null && insertList.size()>0){
-                try {
-                    userBatchSave(insertList);
-                } catch (Exception e) {
-                    log.error("批量保存用户出错");
-                    e.printStackTrace();
-                }
             }
 
             if(updateList!=null && updateList.size()>0){
@@ -551,18 +541,37 @@ public class ScheduledTasks {
                 }
             }
 
+            if(delList!=null && delList.size()>0){
+                try {
+                    appUserService.batchDel(delList);
+                } catch (Exception e) {
+                    log.error("批量删除用户出错",e);
+                    e.printStackTrace();
+                }
+            }
+
+            if(insertList!=null && insertList.size()>0){
+                try {
+                    userBatchSave(insertList);
+                } catch (Exception e) {
+                    log.error("批量保存用户出错",e);
+                    e.printStackTrace();
+                }
+            }
+
+
             //更新版本号
             if(StringUtils.isNotBlank(timestamp)){
                 try {
                     syncDataversionService.updateDataVersion(systemName,methodUser,timestamp);
                 } catch (Exception e) {
-                    log.error("单位同步更新版本号出错");
+                    log.error("用户同步更新版本号出错");
                     e.printStackTrace();
                 }
             }
         }
 
-        log.error("人员同步任务结束："+DateUtil.fomatDate(sdf.format(new Date())));
+        log.error("人员同步任务结束："+sdf.format(new Date()));
     }
 
     /**
@@ -691,28 +700,28 @@ public class ScheduledTasks {
                 Region region = list.get(i);
 
                 if("1".equals(region.getDel_flag())){
-                    //删除用户
+                    //删除region
                     delList.add(region);
                     continue;
                 }
 
                 if(!"0".equals(region.getDel_flag())){
-                    log.info("region错误，del_flag不为0，region_id："+region.getRegion_id() + ",region名称："+region.getRegion_name());
+                    log.error("region错误，del_flag不为0，region_id："+region.getRegion_id() + ",region名称："+region.getRegion_name());
                     continue;
                 }
 
                 if(StringUtils.isBlank(region.getRegion_id())){
-                    log.info("region错误，region_id不能为空，region_id："+region.getRegion_id() + ",region名称："+region.getRegion_name());
+                    log.error("region错误，region_id不能为空，region_id："+region.getRegion_id() + ",region名称："+region.getRegion_name());
                     continue;
                 }
 
                 if(StringUtils.isBlank(region.getRegion_name())){
-                    log.info("region错误，region_name不能为空，region_id："+region.getRegion_id() + ",region名称："+region.getRegion_name());
+                    log.error("region错误，region_name不能为空，region_id："+region.getRegion_id() + ",region名称："+region.getRegion_name());
                     continue;
                 }
 
                 if(StringUtils.isBlank(region.getParent_id())){
-                    log.info("region错误，parent_id不能为空，region_id："+region.getRegion_id() + ",region名称："+region.getRegion_name());
+                    log.error("region错误，parent_id不能为空，region_id："+region.getRegion_id() + ",region名称："+region.getRegion_name());
                     continue;
                 }
 
@@ -736,14 +745,6 @@ public class ScheduledTasks {
                     e.printStackTrace();
                 }
 
-                if(insertList.size()>200){
-                    try {
-                        regionBatchSave(insertList);
-                    } catch (Exception e) {
-                        log.error("批量保存region出错");
-                        e.printStackTrace();
-                    }
-                }
                 if(updateList.size()>200){
                     try {
                         regionService.batchUpdate(updateList);
@@ -754,7 +755,27 @@ public class ScheduledTasks {
                     }
                 }
 
+                if(insertList.size()>200){
+                    try {
+                        regionBatchSave(insertList);
+                    } catch (Exception e) {
+                        log.error("批量保存region出错");
+                        e.printStackTrace();
+                    }
+                }
+
             }
+
+            if(updateList!=null && updateList.size()>0){
+                try {
+                    regionService.batchUpdate(updateList);
+                    updateList.clear();
+                } catch (Exception e) {
+                    log.error("批量更新region出错");
+                    e.printStackTrace();
+                }
+            }
+
             if(delList!=null && delList.size()>0){
                 try {
                     regionService.batchDel(delList);
@@ -774,15 +795,6 @@ public class ScheduledTasks {
                 }
             }
 
-            if(updateList!=null && updateList.size()>0){
-                try {
-                    regionService.batchUpdate(updateList);
-                    updateList.clear();
-                } catch (Exception e) {
-                    log.error("批量更新region出错");
-                    e.printStackTrace();
-                }
-            }
 
             //更新版本号
             if(StringUtils.isNotBlank(timestamp)){
@@ -795,7 +807,7 @@ public class ScheduledTasks {
             }
         }
 
-        log.error("region同步任务结束："+DateUtil.fomatDate(sdf.format(new Date())));
+        log.error("region同步任务结束："+sdf.format(new Date()));
     }
 
     /**
