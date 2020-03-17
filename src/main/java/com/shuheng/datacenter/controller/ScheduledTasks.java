@@ -394,7 +394,8 @@ public class ScheduledTasks {
                 log.error("本次未获取到任何人员"+sdf.format(new Date()));
                 return;
             }
-            log.error("人员操作开始" + sdf.format(new Date()));
+            //log.error(json);
+            log.error("人员操作开始,人数:"+list.size() +"。时间:"+ sdf.format(new Date()));
             List<User> insertList = new ArrayList<>();
             List<User> updateList = new ArrayList<>();
             List<User> delList = new ArrayList<>();
@@ -435,6 +436,33 @@ public class ScheduledTasks {
                 if(StringUtils.isBlank(user.getReport_flag())){
                     log.info("人员错误，人员居住地报到标识不能为空，用户id："+user.getUser_id() + ",用户姓名："+user.getUser_name());
                     continue;
+                }
+
+                //检测省市区县街道社区信息是否符合标准,不符合的置空,ID为正整数或者UUID
+                if(StringUtils.isNotBlank(user.getProvince())){
+                    if(!ValidateUtils.Z_index(user.getProvince()) && !ValidateUtils.isUUID(user.getProvince())){
+                        user.setProvince(null);
+                    }
+                }
+                if(StringUtils.isNotBlank(user.getCity())){
+                    if(!ValidateUtils.Z_index(user.getCity()) && !ValidateUtils.isUUID(user.getCity())){
+                        user.setCity(null);
+                    }
+                }
+                if(StringUtils.isNotBlank(user.getArea())){
+                    if(!ValidateUtils.Z_index(user.getArea()) && !ValidateUtils.isUUID(user.getArea())){
+                        user.setArea(null);
+                    }
+                }
+                if(StringUtils.isNotBlank(user.getStreet())){
+                    if(!ValidateUtils.Z_index(user.getStreet()) && !ValidateUtils.isUUID(user.getStreet())){
+                        user.setStreet(null);
+                    }
+                }
+                if(StringUtils.isNotBlank(user.getCommunity())){
+                    if(!ValidateUtils.Z_index(user.getCommunity()) && !ValidateUtils.isUUID(user.getCommunity())){
+                        user.setCommunity(null);
+                    }
                 }
 
                 //home_telphone如果存在并且不是以0532开头，加上0532
@@ -536,7 +564,7 @@ public class ScheduledTasks {
                 try {
                     userBatchUpdate(updateList);
                 } catch (Exception e) {
-                    log.error("批量更新用户出错");
+                    log.error("批量更新用户出错",e);
                     e.printStackTrace();
                 }
             }
@@ -565,7 +593,7 @@ public class ScheduledTasks {
                 try {
                     syncDataversionService.updateDataVersion(systemName,methodUser,timestamp);
                 } catch (Exception e) {
-                    log.error("用户同步更新版本号出错");
+                    log.error("用户同步更新版本号出错",e);
                     e.printStackTrace();
                 }
             }
@@ -588,7 +616,7 @@ public class ScheduledTasks {
                 try {
                     PageData pd = appUserService.findByPhone(user.getMobilephone());
                     if(pd!=null){
-                        log.error("人员手机号出现重复，用户id："+user.getUser_id() + ",手机号："+DESUtil.decode(user.getMobilephone())+",用户姓名："+user.getUser_name());
+                        log.error("人员手机号出现重复，用户id："+user.getUser_id() + ",手机号："+DESUtil.decode(user.getMobilephone())+",用户姓名："+user.getUser_name()+",外网ID:"+pd.getString("user_id")+",外网更新人:"+pd.getString("update_user")+",外网积分:"+pd.getString("user_score")+",是否是志愿者:"+ (pd.get("volunteer_id")!=null?"是":"否"));
                         repetList.add(user);
                         continue;
                     }
@@ -601,7 +629,7 @@ public class ScheduledTasks {
                         }
                     }
                 } catch (Exception e) {
-                    log.error("根据手机号查询人员出错");
+                    log.error("根据手机号查询人员出错",e);
                     e.printStackTrace();
                 }
 
@@ -611,7 +639,7 @@ public class ScheduledTasks {
                 try {
                     PageData pd = appUserService.findByCardNumber(user.getCard_number());
                     if(pd!=null){
-                        log.error("人员身份证号出现重复，用户id："+user.getUser_id() + ",身份证号码:"+DESUtil.decode(user.getCard_number())+",用户姓名："+user.getUser_name());
+                        log.error("人员身份证号出现重复，用户id："+user.getUser_id() + ",身份证号码:"+DESUtil.decode(user.getCard_number())+",用户姓名："+user.getUser_name()+",外网ID:"+pd.getString("user_id")+",外网更新人:"+pd.getString("update_user")+",外网积分:"+pd.getString("user_score")+",是否是志愿者:"+ (pd.get("volunteer_id")!=null?"是":"否"));
                         repetList.add(user);
                         continue;
                     }
@@ -624,7 +652,7 @@ public class ScheduledTasks {
                         }
                     }
                 } catch (Exception e) {
-                    log.error("根据身份证号查询人员出错");
+                    log.error("根据身份证号查询人员出错",e);
                     e.printStackTrace();
                 }
             }

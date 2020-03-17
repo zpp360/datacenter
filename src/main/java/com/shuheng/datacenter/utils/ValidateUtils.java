@@ -120,7 +120,19 @@ public class ValidateUtils {
 
     private static final String V_NORMAL_NAME = "^[\u4e00-\u9fa5|()|0-9|、]{0,}$";
 
+
+    private static final String UUID = "^(\\w{8}(-\\w{4}){3}-\\w{12})|(\\w{8}(\\w{4}){3}\\w{12})$";
+
     public ValidateUtils(){}
+
+    /**
+     * 校验UUID，可以匹配带-的还不带-的
+     * @param value
+     * @return
+     */
+    public static boolean isUUID(String value){
+        return match(UUID,value);
+    }
 
 
     /**
@@ -564,6 +576,11 @@ public class ValidateUtils {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
+    }
+
+
+    public static void main(String[] args){
+        System.out.println(!ValidateUtils.Z_index("sdfsadf") && !ValidateUtils.isUUID("sadfsdaf"));
     }
 
 }

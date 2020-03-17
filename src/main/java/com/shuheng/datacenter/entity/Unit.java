@@ -39,6 +39,26 @@ public class Unit implements Serializable{
 
     private String sortid;
 
+    private String fax;
+
+    private String telephone;
+
+    public String getFax() {
+        return fax;
+    }
+
+    public void setFax(String fax) {
+        this.fax = fax;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
     public String getUpdate_time() {
         return update_time;
     }

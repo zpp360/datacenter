@@ -17,6 +17,8 @@
         UNIT_ADD,
         unit_prop,
         unit_order,
+        unit_tel,
+        unit_fax,
         INSERT_USER,
         INSERT_TIMESTAMP,
         UPDATE_USER,
@@ -38,6 +40,8 @@
                 #{item.unit_add},
                 #{item.unit_prop},
                 #{item.sortid},
+                #{item.telephone},
+                #{item.fax},
                 'datacenter',
                 now(),
                 'datacenter',
@@ -57,41 +61,47 @@
             update
             m_unit
             <set>
-                <if test="item.unit_name_full != null and item.unit_name_full">
+                <if test="item.unit_name_full != null and item.unit_name_full!=''">
                     unit_name_full = #{item.unit_name_full},
                 </if>
-                <if test="item.unit_name_abbreviation != null and item.unit_name_abbreviation">
+                <if test="item.unit_name_abbreviation != null and item.unit_name_abbreviation!=''">
                     unit_name_abbreviation = #{item.unit_name_abbreviation},
                 </if>
-                <if test="item.unit_p_id != null and item.unit_p_id">
+                <if test="item.unit_p_id != null and item.unit_p_id!=''">
                     unit_p_id = #{item.unit_p_id},
                 </if>
-                <if test="item.unit_type != null and item.unit_type">
+                <if test="item.unit_type != null and item.unit_type!=''">
                     unit_type = #{item.unit_type},
                 </if>
-                <if test="item.province != null and item.province">
+                <if test="item.province != null and item.province!=''">
                     province = #{item.province},
                 </if>
-                <if test="item.city != null and item.city">
+                <if test="item.city != null and item.city!=''">
                     city = #{item.city},
                 </if>
-                <if test="item.area != null and item.area">
+                <if test="item.area != null and item.area!=''">
                     area = #{item.area},
                 </if>
-                <if test="item.street != null and item.street">
+                <if test="item.street != null and item.street!=''">
                     street = #{item.street},
                 </if>
-                <if test="item.community != null and item.community">
+                <if test="item.community != null and item.community!=''">
                     community = #{item.community},
                 </if>
-                <if test="item.unit_add != null and item.unit_add">
+                <if test="item.unit_add != null and item.unit_add!=''">
                     unit_add = #{item.unit_add},
                 </if>
-                <if test="item.unit_prop != null and item.unit_prop">
+                <if test="item.unit_prop != null and item.unit_prop!=''">
                     unit_prop = #{item.unit_prop},
                 </if>
-                <if test="item.sortid != null and item.sortid">
+                <if test="item.sortid != null and item.sortid!=''">
                     unit_order = #{item.sortid},
+                </if>
+                <if test="item.telephone != null and item.telephone!=''">
+                    unit_tel = #{item.telephone},
+                </if>
+                <if test="item.fax != null and item.fax!=''">
+                    unit_fax = #{item.fax},
                 </if>
                 UPDATE_TIMESTAMP = now()
             </set>

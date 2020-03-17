@@ -195,8 +195,11 @@
     <!--根据手机号查询-->
     <select id="findByPhone" parameterType="java.lang.String" resultType="pd">
         select
-          *
+          t.*,
+	      v.volunteer_id
         from m_user t
+        LEFT JOIN m_volunteer v
+        on t.user_id = v.user_id
         where t.del_flag = '0'
         and t.user_phone = #{mobilephone}
     </select>
@@ -204,8 +207,11 @@
     <!--根据身份证号码查询-->
     <select id="findByCardNumber" parameterType="java.lang.String" resultType="pd">
         select
-          *
+          t.*,
+	      v.volunteer_id
         from m_user t
+        LEFT JOIN m_volunteer v
+        on t.user_id = v.user_id
         where t.del_flag = '0'
         and t.user_id_number = #{mobilephone}
     </select>
