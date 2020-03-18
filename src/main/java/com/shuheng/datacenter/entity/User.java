@@ -30,6 +30,8 @@ public class User implements Serializable {
 
     private String position;
 
+    private String department;
+
     private String education;
 
     private String province;
@@ -55,6 +57,8 @@ public class User implements Serializable {
     private String update_time;
 
     private String person_group; //0工作人员 1部门领导 2分管领导3主要领导
+
+    private String sortno;
 
     public String getPerson_group() {
         //在职用户 分组
@@ -288,5 +292,21 @@ public class User implements Serializable {
 
     public void setUpdate_time(String update_time) {
         this.update_time = update_time;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getSortno() {
+        return sortno;
+    }
+
+    public void setSortno(String sortno) {
+        this.sortno = sortno;
     }
 }

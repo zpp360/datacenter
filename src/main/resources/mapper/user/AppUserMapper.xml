@@ -78,6 +78,7 @@
           user_join_party_time,
           user_education,
           user_status,
+          user_sort,
           del_flag,
           user_regist_time,
           insert_user,
@@ -105,12 +106,13 @@
             #{item.user_type},
             #{item.unit_id},
             #{item.nation},
-            NULL ,
+            #{item.department},
             #{item.position},
             #{item.isdy},
             STR_TO_DATE(#{item.rd_time},'%Y%m%d%H%i%s'),
             #{item.education},
             '1',
+            #{item.sortno},
             '0',
             now(),
             'datacenter',
@@ -166,6 +168,12 @@
                 </if>
                 <if test="item.education != null and item.education">
                     user_education = #{item.education},
+                </if>
+                <if test="item.department != null and item.department">
+                    user_department = #{item.department},
+                </if>
+                <if test="item.sortno != null and item.sortno">
+                    user_sort = #{item.sortno},
                 </if>
                 <if test="item.phone_type != null and item.phone_type">
                     phone_type = #{item.phone_type},
