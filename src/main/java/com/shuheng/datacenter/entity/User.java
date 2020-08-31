@@ -50,7 +50,7 @@ public class User implements Serializable {
 
     private String del_flag;
 
-    private String report_flag;
+    private String report_flag;//是否发起居住地报到确认（不发起：0，发起确认：1）
 
     private String phone_type;
 
@@ -59,6 +59,18 @@ public class User implements Serializable {
     private String person_group; //0工作人员 1部门领导 2分管领导3主要领导
 
     private String sortno;
+
+    private String status;//居住地报道信息是否确认（0:未确认，1：已确认） 当report_flag和status的值都为1的时候表示该老干部已在居住地报到，并且信息已经经过确认
+
+    private String interest;//兴趣爱好
+
+    private String work_time;//参加工作时间
+
+    private String retire_time;//离退休时间
+
+    private String treatment;//享受待遇
+
+    private String relation;//党组织关系所在地
 
     public String getPerson_group() {
         //在职用户 分组
@@ -308,5 +320,53 @@ public class User implements Serializable {
 
     public void setSortno(String sortno) {
         this.sortno = sortno;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getInterest() {
+        return interest;
+    }
+
+    public void setInterest(String interest) {
+        this.interest = interest;
+    }
+
+    public String getWork_time() {
+        return work_time;
+    }
+
+    public void setWork_time(String work_time) {
+        this.work_time = work_time;
+    }
+
+    public String getRetire_time() {
+        return retire_time;
+    }
+
+    public void setRetire_time(String retire_time) {
+        this.retire_time = retire_time;
+    }
+
+    public String getTreatment() {
+        return treatment;
+    }
+
+    public void setTreatment(String treatment) {
+        this.treatment = treatment;
+    }
+
+    public String getRelation() {
+        return relation;
+    }
+
+    public void setRelation(String relation) {
+        this.relation = relation;
     }
 }

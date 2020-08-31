@@ -77,6 +77,14 @@ public class AppUserService {
     }
 
     /**
+     * 批量居住地报到申请
+     * @param checkReportList
+     */
+    public void checkBatchReport(List<User> checkReportList) throws Exception {
+        dao.batchSave("AppUserMapper.checkBatchReport",checkReportList);
+    }
+
+    /**
      * 根据id查询，del_flag为1
      * @param userId
      * @return
@@ -102,4 +110,5 @@ public class AppUserService {
     public List<PageData> listAddUser(PageData pd) throws Exception {
         return (List<PageData>) dao.findForList("AppUserMapper.listAddUser",pd);
     }
+
 }

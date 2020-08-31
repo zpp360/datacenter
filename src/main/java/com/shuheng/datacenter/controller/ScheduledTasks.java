@@ -521,6 +521,32 @@ public class ScheduledTasks {
                     }
                 }
 
+                //处理参加工作时间
+                if(StringUtils.isNotBlank(user.getWork_time())){
+                    if(user.getWork_time().length()==4){
+                        user.setWork_time(user.getWork_time()+"0101");
+                    }
+                    if(user.getWork_time().length()==6){
+                        user.setWork_time(user.getWork_time()+"01");
+                    }
+                    if(user.getWork_time().length()==8 && user.getWork_time().endsWith("00")){
+                        user.setWork_time(user.getWork_time().substring(0,6)+"01");
+                    }
+                }
+
+                //处理离退休时间
+                if(StringUtils.isNotBlank(user.getRetire_time())){
+                    if(user.getRetire_time().length()==4){
+                        user.setRetire_time(user.getRetire_time()+"0101");
+                    }
+                    if(user.getRetire_time().length()==6){
+                        user.setRetire_time(user.getRetire_time()+"01");
+                    }
+                    if(user.getRetire_time().length()==8 && user.getRetire_time().endsWith("00")){
+                        user.setRetire_time(user.getRetire_time().substring(0,6)+"01");
+                    }
+                }
+
                 //返回值没有问题，迭代timestamp，并存储timestamp
                 if (StringUtils.isNotBlank(user.getUpdate_time())){
                     if(Long.parseLong(user.getUpdate_time()) > Long.parseLong(timestamp)){
@@ -609,6 +635,7 @@ public class ScheduledTasks {
     private void userBatchSave(List<User> list) throws Exception {
         List<User> repetList = new ArrayList<>();
         List<User> reportList = new ArrayList<>();
+        List<User> checkReportList = new ArrayList<>();
         for(int i = 0; i<list.size(); i++){
             User user = list.get(i);
             //检查是否存在此手机号
@@ -616,7 +643,7 @@ public class ScheduledTasks {
                 try {
                     PageData pd = appUserService.findByPhone(user.getMobilephone());
                     if(pd!=null){
-                        log.error("人员手机号出现重复，用户id："+user.getUser_id() + ",手机号："+DESUtil.decode(user.getMobilephone())+",用户姓名："+user.getUser_name()+",外网ID:"+pd.getString("user_id")+",外网更新人:"+pd.getString("update_user")+",外网积分:"+pd.getString("user_score")+",是否是志愿者:"+ (pd.get("volunteer_id")!=null?"是":"否"));
+                        log.error("人员手机号出现重复，用户id："+user.getUser_id() + ",手机号："+DESUtil.decode(user.getMobilephone())+",用户姓名："+user.getUser_name()+",外网ID:"+pd.getString("user_id")+",外网更新人:"+pd.getString("update_user")+",外网积分:"+pd.get("user_score")+",是否是志愿者:"+ (pd.get("volunteer_id")!=null?"是":"否"));
                         repetList.add(user);
                         continue;
                     }
@@ -639,7 +666,7 @@ public class ScheduledTasks {
                 try {
                     PageData pd = appUserService.findByCardNumber(user.getCard_number());
                     if(pd!=null){
-                        log.error("人员身份证号出现重复，用户id："+user.getUser_id() + ",身份证号码:"+DESUtil.decode(user.getCard_number())+",用户姓名："+user.getUser_name()+",外网ID:"+pd.getString("user_id")+",外网更新人:"+pd.getString("update_user")+",外网积分:"+pd.getString("user_score")+",是否是志愿者:"+ (pd.get("volunteer_id")!=null?"是":"否"));
+                        log.error("人员身份证号出现重复，用户id："+user.getUser_id() + ",身份证号码:"+DESUtil.decode(user.getCard_number())+",用户姓名："+user.getUser_name()+",外网ID:"+pd.getString("user_id")+",外网更新人:"+pd.getString("update_user")+",外网积分:"+pd.get("user_score")+",是否是志愿者:"+ (pd.get("volunteer_id")!=null?"是":"否"));
                         repetList.add(user);
                         continue;
                     }
@@ -660,7 +687,13 @@ public class ScheduledTasks {
             if(StringUtils.isNotBlank(user.getReport_flag()) && "1".equals(user.getReport_flag()) && StringUtils.isNotBlank(user.getProvince()) &&
                     StringUtils.isNotBlank(user.getCity()) && StringUtils.isNotBlank(user.getArea()) && StringUtils.isNotBlank(user.getStreet()) &&
                     StringUtils.isNotBlank(user.getCommunity()) && StringUtils.isNotBlank(user.getAddress())){
-                reportList.add(user);
+                if(StringUtils.isNotBlank(user.getStatus()) && "1".equals(user.getStatus())){
+                    //居住地报道信息是否确认（0:未确认，1：已确认） 当report_flag和status的值都为1的时候表示该老干部已在居住地报到，并且信息已经经过确认
+                    reportList.add(user);
+                }else if("0".equals(user.getStatus())){
+                    //居住地报到审核的
+                    checkReportList.add(user);
+                }
             }
 
             //根据id查询用户，如果有直接物理删除，因为存在del_flag为1的情况，但是id一样，会导致插入出错
@@ -675,6 +708,9 @@ public class ScheduledTasks {
         }
         if(reportList.size()>0){
             appUserService.batchReport(reportList);
+        }
+        if(checkReportList.size()>0){
+            appUserService.checkBatchReport(checkReportList);
         }
         list.clear();
     }
