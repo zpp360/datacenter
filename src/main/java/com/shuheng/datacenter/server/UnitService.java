@@ -58,4 +58,13 @@ public class UnitService {
     public void batchDelete(List<Unit> delList) throws Exception {
         dao.delete("UnitMapper.batchDelete",delList);
     }
+
+    /**
+     * 根据单位名称查询
+     * @param name
+     * @return
+     */
+    public List<PageData> listByName(String name) throws Exception {
+        return (List<PageData>) dao.findForList("UnitMapper.listByName",name);
+    }
 }

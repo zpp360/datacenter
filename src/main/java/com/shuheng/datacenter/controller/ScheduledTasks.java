@@ -73,7 +73,7 @@ public class ScheduledTasks {
      * 增量获取
      * 每天半夜12点30分执行一次（注意日期域为0不是24）
      */
-    @Scheduled(cron = "0 40 0 * * ?")
+    @Scheduled(cron = "0 30 0 * * ?")
     @GetMapping(value = "/syncUnit")
     public void syncUnit() {
         log.error("单位同步任务开始："+DateUtil.fomatDate(sdf.format(new Date())));
@@ -153,6 +153,18 @@ public class ScheduledTasks {
                         continue;
                     }
                 }
+                //判断单位是否重复
+                try {
+                    List<PageData> exitList = unitService.listByName(unit.getUnit_name_full());
+                    if(exitList!=null && exitList.size()>0){
+                        log.error("单位错误,单位名称已存在，单位id:"+unit.getUnit_id()+",单位名称:"+unit.getUnit_name_full());
+                        continue;
+                    }
+                } catch (Exception e) {
+                    log.error("单位错误,根据名称查询单位出错");
+                    e.printStackTrace();
+                }
+
                 //返回值没有问题，迭代timestamp，并存储timestamp
                 if (StringUtils.isNotBlank(unit.getUpdate_time())){
                     if(Long.parseLong(unit.getUpdate_time()) > Long.parseLong(timestamp)){
@@ -367,7 +379,7 @@ public class ScheduledTasks {
     /**
      * 同步人员
      */
-    @Scheduled(cron = "0 30 0 * * ?")
+    @Scheduled(cron = "0 50 0 * * ?")
     @GetMapping(value = "syncUser")
     public void syncUser() throws Exception {
         log.error("人员同步任务开始："+sdf.format(new Date()));
@@ -394,7 +406,7 @@ public class ScheduledTasks {
                 log.error("本次未获取到任何人员"+sdf.format(new Date()));
                 return;
             }
-            //log.error(json);
+            log.error(json);
             log.error("人员操作开始,人数:"+list.size() +"。时间:"+ sdf.format(new Date()));
             List<User> insertList = new ArrayList<>();
             List<User> updateList = new ArrayList<>();
@@ -521,32 +533,6 @@ public class ScheduledTasks {
                     }
                 }
 
-                //处理参加工作时间
-                if(StringUtils.isNotBlank(user.getWork_time())){
-                    if(user.getWork_time().length()==4){
-                        user.setWork_time(user.getWork_time()+"0101");
-                    }
-                    if(user.getWork_time().length()==6){
-                        user.setWork_time(user.getWork_time()+"01");
-                    }
-                    if(user.getWork_time().length()==8 && user.getWork_time().endsWith("00")){
-                        user.setWork_time(user.getWork_time().substring(0,6)+"01");
-                    }
-                }
-
-                //处理离退休时间
-                if(StringUtils.isNotBlank(user.getRetire_time())){
-                    if(user.getRetire_time().length()==4){
-                        user.setRetire_time(user.getRetire_time()+"0101");
-                    }
-                    if(user.getRetire_time().length()==6){
-                        user.setRetire_time(user.getRetire_time()+"01");
-                    }
-                    if(user.getRetire_time().length()==8 && user.getRetire_time().endsWith("00")){
-                        user.setRetire_time(user.getRetire_time().substring(0,6)+"01");
-                    }
-                }
-
                 //返回值没有问题，迭代timestamp，并存储timestamp
                 if (StringUtils.isNotBlank(user.getUpdate_time())){
                     if(Long.parseLong(user.getUpdate_time()) > Long.parseLong(timestamp)){
@@ -564,6 +550,15 @@ public class ScheduledTasks {
                 } catch (Exception e) {
                     log.error("查询人员信息出错",e);
                     e.printStackTrace();
+                }
+
+                if(delList!=null && delList.size()>0){
+                    try {
+                        appUserService.batchDel(delList);
+                    } catch (Exception e) {
+                        log.error("批量删除用户出错",e);
+                        e.printStackTrace();
+                    }
                 }
 
                 if(updateList.size()>200){
@@ -591,15 +586,6 @@ public class ScheduledTasks {
                     userBatchUpdate(updateList);
                 } catch (Exception e) {
                     log.error("批量更新用户出错",e);
-                    e.printStackTrace();
-                }
-            }
-
-            if(delList!=null && delList.size()>0){
-                try {
-                    appUserService.batchDel(delList);
-                } catch (Exception e) {
-                    log.error("批量删除用户出错",e);
                     e.printStackTrace();
                 }
             }

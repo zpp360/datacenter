@@ -64,14 +64,6 @@ public class User implements Serializable {
 
     private String interest;//兴趣爱好
 
-    private String work_time;//参加工作时间
-
-    private String retire_time;//离退休时间
-
-    private String treatment;//享受待遇
-
-    private String relation;//党组织关系所在地
-
     public String getPerson_group() {
         //在职用户 分组
         if("01".equals(this.user_type)){
@@ -338,35 +330,4 @@ public class User implements Serializable {
         this.interest = interest;
     }
 
-    public String getWork_time() {
-        return work_time;
-    }
-
-    public void setWork_time(String work_time) {
-        this.work_time = work_time;
-    }
-
-    public String getRetire_time() {
-        return retire_time;
-    }
-
-    public void setRetire_time(String retire_time) {
-        this.retire_time = retire_time;
-    }
-
-    public String getTreatment() {
-        return treatment;
-    }
-
-    public void setTreatment(String treatment) {
-        this.treatment = treatment;
-    }
-
-    public String getRelation() {
-        return relation;
-    }
-
-    public void setRelation(String relation) {
-        this.relation = relation;
-    }
 }

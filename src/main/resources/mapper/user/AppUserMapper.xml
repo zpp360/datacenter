@@ -31,12 +31,14 @@
           t.person_group,
           t.user_number,
           t.user_desc,
-          t.user_die
+          t.user_die,
+          h.del_flag as report_flag
         FROM  m_user t
         inner join m_unit n
         on t.user_unit = n.unit_id
         LEFT JOIN m_user_datacenter d
         on t.user_id = d.user_id
+        LEFT JOIN m_user_address_history h on t.user_id = h.user_id
         where n.del_flg = '0'
         and n.city = '171'
         and (t.user_status = '1' or t.user_status = '3')
@@ -88,11 +90,7 @@
           phone_type,
           office_phone,
           person_group,
-          hobbies,
-          join_work_time,
-          leave_time,
-          treatment,
-          relation
+          hobbies
         ) values
         <foreach collection="list" item="item" index="index" separator="," >
             (
@@ -127,11 +125,7 @@
             #{item.phone_type},
             #{item.home_telphone},
             #{item.person_group},
-            #{item.interest},
-            #{work_time},
-            #{retire_time},
-            #{treatment},
-            #{relation}
+            #{item.interest}
             )
         </foreach>
 
@@ -193,6 +187,9 @@
                 </if>
                 <if test="item.person_group != null and item.person_group">
                     person_group = #{item.person_group},
+                </if>
+                <if test="item.interest != null and item.interest">
+                    hobbies = #{item.interest},
                 </if>
                 update_user = 'datacenter',
                 update_time = now()

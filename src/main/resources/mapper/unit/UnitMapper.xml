@@ -141,4 +141,13 @@
         </foreach>
         )
     </delete>
+
+    <!--根据名称查询-->
+    <select id="listByName" parameterType="java.lang.String" resultType="pd">
+        select
+          *
+        from m_unit m
+        where m.DEL_FLG = '0'
+        and m.UNIT_NAME_FULL = #{name}
+    </select>
 </mapper>
