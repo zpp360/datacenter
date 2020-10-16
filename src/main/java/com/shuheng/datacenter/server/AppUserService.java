@@ -52,20 +52,20 @@ public class AppUserService {
 
     /**
      * 根据手机号查询用户
-     * @param mobilephone
+     * @param pd
      * @return
      */
-    public PageData findByPhone(String mobilephone) throws Exception {
-        return (PageData) dao.findForObject("AppUserMapper.findByPhone",mobilephone);
+    public PageData findByPhone(PageData pd) throws Exception {
+        return (PageData) dao.findForObject("AppUserMapper.findByPhone",pd);
     }
 
     /**
      * 根据身份证号码查询用户
-     * @param cardNumber
+     * @param pd
      * @return
      */
-    public PageData findByCardNumber(String cardNumber) throws Exception {
-        return (PageData) dao.findForObject("AppUserMapper.findByCardNumber",cardNumber);
+    public PageData findByCardNumber(PageData pd) throws Exception {
+        return (PageData) dao.findForObject("AppUserMapper.findByCardNumber",pd);
     }
 
     /**
@@ -111,4 +111,16 @@ public class AppUserService {
         return (List<PageData>) dao.findForList("AppUserMapper.listAddUser",pd);
     }
 
+    /**
+     * 获取居住地报到信息
+     * @param pd
+     * @return
+     */
+    public List<PageData> listUserReport(PageData pd) throws Exception {
+        return (List<PageData>) dao.findForList("AppUserMapper.findUserReport",pd);
+    }
+
+    public void delUserReport(PageData pd) throws Exception {
+        dao.delete("AppUserMapper.delUserReport",pd);
+    }
 }

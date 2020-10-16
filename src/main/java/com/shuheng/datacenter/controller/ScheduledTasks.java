@@ -550,6 +550,7 @@ public class ScheduledTasks {
                 } catch (Exception e) {
                     log.error("查询人员信息出错",e);
                     e.printStackTrace();
+                    return ;
                 }
 
                 if(delList!=null && delList.size()>0){
@@ -558,6 +559,7 @@ public class ScheduledTasks {
                     } catch (Exception e) {
                         log.error("批量删除用户出错",e);
                         e.printStackTrace();
+                        return ;
                     }
                 }
 
@@ -567,6 +569,7 @@ public class ScheduledTasks {
                     } catch (Exception e) {
                         log.error("批量更新用户出错",e);
                         e.printStackTrace();
+                        return ;
                     }
                 }
 
@@ -576,6 +579,7 @@ public class ScheduledTasks {
                     } catch (Exception e) {
                         log.error("批量保存用户出错",e);
                         e.printStackTrace();
+                        return ;
                     }
                 }
 
@@ -587,6 +591,7 @@ public class ScheduledTasks {
                 } catch (Exception e) {
                     log.error("批量更新用户出错",e);
                     e.printStackTrace();
+                    return ;
                 }
             }
 
@@ -596,6 +601,7 @@ public class ScheduledTasks {
                 } catch (Exception e) {
                     log.error("批量保存用户出错",e);
                     e.printStackTrace();
+                    return ;
                 }
             }
 
@@ -607,6 +613,7 @@ public class ScheduledTasks {
                 } catch (Exception e) {
                     log.error("用户同步更新版本号出错",e);
                     e.printStackTrace();
+                    return ;
                 }
             }
         }
@@ -627,16 +634,19 @@ public class ScheduledTasks {
             //检查是否存在此手机号
             if(StringUtils.isNotBlank(user.getMobilephone())){
                 try {
-                    PageData pd = appUserService.findByPhone(user.getMobilephone());
+                    PageData pd = new PageData();
+                    pd.put("user_phone",user.getMobilephone());
+                    pd.put("user_id","");
+                    pd = appUserService.findByPhone(pd);
                     if(pd!=null){
-                        log.error("人员手机号出现重复，用户id："+user.getUser_id() + ",手机号："+DESUtil.decode(user.getMobilephone())+",用户姓名："+user.getUser_name()+",外网ID:"+pd.getString("user_id")+",外网更新人:"+pd.getString("update_user")+",外网积分:"+pd.get("user_score")+",是否是志愿者:"+ (pd.get("volunteer_id")!=null?"是":"否"));
+                        log.error("新增人员手机号出现重复，用户id："+user.getUser_id() + ",手机号："+DESUtil.decode(user.getMobilephone())+",用户姓名："+user.getUser_name()+",外网ID:"+pd.getString("user_id")+",外网更新人:"+pd.getString("update_user")+",外网积分:"+pd.get("user_score")+",是否是志愿者:"+ (pd.get("volunteer_id")!=null?"是":"否"));
                         repetList.add(user);
                         continue;
                     }
                     //继续判断列表中是否有重复手机号的，避免批量插入的时候插入重复的报错
                     for (int j = i+1; j< list.size(); j++ ){
                         if(user.getMobilephone().equals(list.get(j).getMobilephone())){
-                            log.error("人员手机号出现重复(数据中心)，用户id："+user.getUser_id() + ",手机号："+DESUtil.decode(user.getMobilephone())+",用户姓名："+user.getUser_name());
+                            log.error("新增人员手机号出现重复(数据中心)，用户id："+user.getUser_id() + ",手机号："+DESUtil.decode(user.getMobilephone())+",用户姓名："+user.getUser_name());
                             repetList.add(user);
                             continue;
                         }
@@ -650,16 +660,19 @@ public class ScheduledTasks {
             //检查身份证号码是否存在
             if(StringUtils.isNotBlank(user.getCard_number())){
                 try {
-                    PageData pd = appUserService.findByCardNumber(user.getCard_number());
+                    PageData pd = new PageData();
+                    pd.put("user_id_number",user.getCard_number());
+                    pd.put("user_id","");
+                    pd = appUserService.findByCardNumber(pd);
                     if(pd!=null){
-                        log.error("人员身份证号出现重复，用户id："+user.getUser_id() + ",身份证号码:"+DESUtil.decode(user.getCard_number())+",用户姓名："+user.getUser_name()+",外网ID:"+pd.getString("user_id")+",外网更新人:"+pd.getString("update_user")+",外网积分:"+pd.get("user_score")+",是否是志愿者:"+ (pd.get("volunteer_id")!=null?"是":"否"));
+                        log.error("新增人员身份证号出现重复，用户id："+user.getUser_id() + ",身份证号码:"+DESUtil.decode(user.getCard_number())+",用户姓名："+user.getUser_name()+",外网ID:"+pd.getString("user_id")+",外网更新人:"+pd.getString("update_user")+",外网积分:"+pd.get("user_score")+",是否是志愿者:"+ (pd.get("volunteer_id")!=null?"是":"否"));
                         repetList.add(user);
                         continue;
                     }
                     //继续判断列表中是否有重复手机号的，避免批量插入的时候插入重复的报错
                     for (int j = i+1; j< list.size(); j++ ){
                         if(user.getCard_number().equals(list.get(j).getCard_number())){
-                            log.error("人员身份证号出现重复(数据中心)，用户id："+user.getUser_id() + ",身份证号码:"+DESUtil.decode(user.getCard_number())+",用户姓名："+user.getUser_name());
+                            log.error("新增人员身份证号出现重复(数据中心)，用户id："+user.getUser_id() + ",身份证号码:"+DESUtil.decode(user.getCard_number())+",用户姓名："+user.getUser_name());
                             repetList.add(user);
                             continue;
                         }
@@ -694,10 +707,13 @@ public class ScheduledTasks {
         }
         if(reportList.size()>0){
             appUserService.batchReport(reportList);
+            reportList.clear();
         }
         if(checkReportList.size()>0){
             appUserService.checkBatchReport(checkReportList);
+            checkReportList.clear();
         }
+        repetList.clear();
         list.clear();
     }
 
@@ -707,10 +723,122 @@ public class ScheduledTasks {
      * @throws Exception
      */
     private void userBatchUpdate(List<User> list) throws Exception {
-        appUserService.batchUpdate(list);
+        List<User> repetList = new ArrayList<>();
+        List<User> reportList = new ArrayList<>();
+        List<User> checkReportList = new ArrayList<>();
+        for(int i = 0; i<list.size(); i++) {
+            User user = list.get(i);
+            //检查是否存在此手机号
+            if (StringUtils.isNotBlank(user.getMobilephone())) {
+                try {
+                    PageData pd = new PageData();
+                    pd.put("user_phone",user.getMobilephone());
+                    pd.put("user_id",user.getUser_id());
+                    pd = appUserService.findByPhone(pd);
+                    if (pd != null) {
+                        log.error("更新人员手机号出现重复，用户id：" + user.getUser_id() + ",手机号：" + DESUtil.decode(user.getMobilephone()) + ",用户姓名：" + user.getUser_name() + ",外网ID:" + pd.getString("user_id") + ",外网更新人:" + pd.getString("update_user") + ",外网积分:" + pd.get("user_score") + ",是否是志愿者:" + (pd.get("volunteer_id") != null ? "是" : "否"));
+                        repetList.add(user);
+                        continue;
+                    }
+                    //继续判断列表中是否有重复手机号的，避免批量插入的时候插入重复的报错
+                    for (int j = i + 1; j < list.size(); j++) {
+                        if (user.getMobilephone().equals(list.get(j).getMobilephone())) {
+                            log.error("更新人员手机号出现重复(数据中心)，用户id：" + user.getUser_id() + ",手机号：" + DESUtil.decode(user.getMobilephone()) + ",用户姓名：" + user.getUser_name());
+                            repetList.add(user);
+                            continue;
+                        }
+                    }
+                } catch (Exception e) {
+                    log.error("根据手机号查询人员出错", e);
+                    e.printStackTrace();
+                }
+
+            }
+            //检查身份证号码是否存在
+            if (StringUtils.isNotBlank(user.getCard_number())) {
+                try {
+                    PageData pd = new PageData();
+                    pd.put("user_id_number",user.getCard_number());
+                    pd.put("user_id",user.getUser_id());
+                    pd = appUserService.findByCardNumber(pd);
+                    if (pd != null) {
+                        log.error("更新人员身份证号出现重复，用户id：" + user.getUser_id() + ",身份证号码:" + DESUtil.decode(user.getCard_number()) + ",用户姓名：" + user.getUser_name() + ",外网ID:" + pd.getString("user_id") + ",外网更新人:" + pd.getString("update_user") + ",外网积分:" + pd.get("user_score") + ",是否是志愿者:" + (pd.get("volunteer_id") != null ? "是" : "否"));
+                        repetList.add(user);
+                        continue;
+                    }
+                    //继续判断列表中是否有重复手机号的，避免批量插入的时候插入重复的报错
+                    for (int j = i + 1; j < list.size(); j++) {
+                        if (user.getCard_number().equals(list.get(j).getCard_number())) {
+                            log.error("更新人员身份证号出现重复(数据中心)，用户id：" + user.getUser_id() + ",身份证号码:" + DESUtil.decode(user.getCard_number()) + ",用户姓名：" + user.getUser_name());
+                            repetList.add(user);
+                            continue;
+                        }
+                    }
+                } catch (Exception e) {
+                    log.error("根据身份证号查询人员出错", e);
+                    e.printStackTrace();
+                }
+            }
+
+            //是否居住地报到了，如果居住地报到了存放到居住地报到列表，批量添加
+            if(StringUtils.isNotBlank(user.getReport_flag()) && "1".equals(user.getReport_flag()) && StringUtils.isNotBlank(user.getProvince()) &&
+                    StringUtils.isNotBlank(user.getCity()) && StringUtils.isNotBlank(user.getArea()) && StringUtils.isNotBlank(user.getStreet()) &&
+                    StringUtils.isNotBlank(user.getCommunity()) && StringUtils.isNotBlank(user.getAddress())){
+                if(StringUtils.isNotBlank(user.getStatus()) && "1".equals(user.getStatus())){
+                    //居住地报道信息是否确认（0:未确认，1：已确认） 当report_flag和status的值都为1的时候表示该老干部已在居住地报到，并且信息已经经过确认
+                    //查询有无该居住地报到，有则不做操作，无则删除所有报到信息，加入报到集合
+                    PageData pd = new PageData();
+                    pd.put("user_id",user.getUser_id());
+                    pd.put("user_province",user.getProvince());
+                    pd.put("user_city",user.getCity());
+                    pd.put("user_county",user.getArea());
+                    pd.put("user_street",user.getStreet());
+                    pd.put("user_community",user.getCommunity());
+                    pd.put("user_address",user.getAddress());
+                    pd.put("del_flag","1");
+                    List<PageData> userReportList = appUserService.listUserReport(pd);
+                    if(userReportList==null || userReportList.size()==0){
+                        //无此居住地报到,删除该用户居住地报到信息，加入报到list集合
+                        appUserService.delUserReport(pd);
+                        reportList.add(user);
+                    }
+                    //有此居住地报到，不做操作
+                }else if("0".equals(user.getStatus())){
+                    //居住地报到审核的
+                    PageData pd = new PageData();
+                    pd.put("user_id",user.getUser_id());
+                    pd.put("user_province",user.getProvince());
+                    pd.put("user_city",user.getCity());
+                    pd.put("user_county",user.getArea());
+                    pd.put("user_street",user.getStreet());
+                    pd.put("user_community",user.getCommunity());
+                    pd.put("user_address",user.getAddress());
+                    pd.put("del_flag","0");
+                    List<PageData> userReportList = appUserService.listUserReport(pd);
+                    if(userReportList==null || userReportList.size()==0){
+                        //没有则删除所有报到，放入审核list集合
+                        appUserService.delUserReport(pd);
+                        checkReportList.add(user);
+                    }
+                    //有此居住地报到审核，不做操作
+                }
+            }
+        }
+        list.removeAll(repetList);
+        if(list.size()>0){
+            appUserService.batchUpdate(list);
+        }
+        if(reportList.size()>0){
+            appUserService.batchReport(reportList);
+            reportList.clear();
+        }
+        if(checkReportList.size()>0){
+            appUserService.checkBatchReport(checkReportList);
+            checkReportList.clear();
+        }
+        repetList.clear();
         list.clear();
     }
-
 
     /**
      * 同步region
