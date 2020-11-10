@@ -865,6 +865,7 @@ public class ScheduledTasks {
         if(resEntity!=null && resEntity.getStatusCodeValue()== Const.SUCCESS_CODE) {
             //响应成功，获取数据
             String json = (String) resEntity.getBody();
+            log.error(json);
             List<Region> list = JSON.parseArray(json,Region.class);
             if(list==null || list.size()<1){
                 log.error("本次未获取到任何region"+sdf.format(new Date()));
