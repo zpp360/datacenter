@@ -143,11 +143,14 @@
     </delete>
 
     <!--根据名称查询-->
-    <select id="listByName" parameterType="java.lang.String" resultType="pd">
+    <select id="listByName" parameterType="pd" resultType="pd">
         select
           *
         from m_unit m
         where m.DEL_FLG = '0'
-        and m.UNIT_NAME_FULL = #{name}
+        and m.UNIT_NAME_FULL = #{unit_name}
+        <if test="unit_id != null and unit_id!=''">
+           and m.unit_id <![CDATA[ <> ]]> #{unit_id}
+        </if>
     </select>
 </mapper>

@@ -28,7 +28,7 @@
         and t.region_id = #{regionId}
     </select>
 
-    <select id="findByIdAndDelFlag" parameterType="java.lang.String" resultType="pd">
+    <select id="findByIdAndDelFlag" parameterType="java.lang.String" resultType="java.lang.Long">
         select count(1) from m_region_info t where t.del_flg = '1'  and t.region_id = #{regionId}
 
     </select>
@@ -39,7 +39,7 @@
     </delete>
 
     <insert id="batchSave" parameterType="java.util.List">
-        insert into m_user(
+        insert into m_region_info(
           region_id,
           region_code,
           region_name,
@@ -55,12 +55,12 @@
         ) values
         <foreach collection="list" item="item" index="index" separator="," >
         (
-          #{region_id},
-          #{region_code},
-          #{region_name},
-          #{parent_id},
-          #{region_level},
-          #{region_order},
+          #{item.region_id},
+          #{item.region_code},
+          #{item.region_name},
+          #{item.parent_id},
+          #{item.region_level},
+          #{item.region_order},
           '0',
           '0',
           now(),

@@ -95,6 +95,7 @@ public class ScheduledTasks {
         if(resEntity!=null && resEntity.getStatusCodeValue()== Const.SUCCESS_CODE){
             //响应成功，获取数据
             String json = (String) resEntity.getBody();
+            log.error(json);
             //将json数据使用FastJson转成对象
             List<Unit> list = JSON.parseArray(json,Unit.class);
             if(list==null || list.size()<1){
@@ -153,17 +154,6 @@ public class ScheduledTasks {
                         continue;
                     }
                 }
-                //判断单位是否重复
-                try {
-                    List<PageData> exitList = unitService.listByName(unit.getUnit_name_full());
-                    if(exitList!=null && exitList.size()>0){
-                        log.error("单位错误,单位名称已存在，单位id:"+unit.getUnit_id()+",单位名称:"+unit.getUnit_name_full());
-                        continue;
-                    }
-                } catch (Exception e) {
-                    log.error("单位错误,根据名称查询单位出错");
-                    e.printStackTrace();
-                }
 
                 //返回值没有问题，迭代timestamp，并存储timestamp
                 if (StringUtils.isNotBlank(unit.getUpdate_time())){
@@ -191,8 +181,7 @@ public class ScheduledTasks {
                     try {
                         batchUpdate(updateList);
                     } catch (Exception e) {
-                        log.error("批量更新出现错误");
-                        e.printStackTrace();
+                        log.error("批量更新出现错误",e);
                     }
                 }
 
@@ -201,8 +190,7 @@ public class ScheduledTasks {
                     try {
                         batchInsert(insertList);
                     } catch (Exception e) {
-                        log.error("批量插入执行出错");
-                        e.printStackTrace();
+                        log.error("批量插入执行出错",e);
                     }
                 }
 
@@ -213,8 +201,7 @@ public class ScheduledTasks {
                 try {
                     batchUpdate(updateList);
                 } catch (Exception e) {
-                    log.error("批量更新出现错误");
-                    e.printStackTrace();
+                    log.error("批量更新出现错误",e);
                 }
             }
 
@@ -228,8 +215,7 @@ public class ScheduledTasks {
                 try {
                     batchInsert(insertList);
                 } catch (Exception e) {
-                    log.error("批量插入出现错误");
-                    e.printStackTrace();
+                    log.error("批量插入出现错误",e);
                 }
             }
 
@@ -238,8 +224,7 @@ public class ScheduledTasks {
                 try {
                     syncDataversionService.updateDataVersion(systemName,methodUnit,timestamp);
                 } catch (Exception e) {
-                    log.error("单位同步更新版本号出错");
-                    e.printStackTrace();
+                    log.error("单位同步更新版本号出错",e);
                 }
             }
         }
@@ -270,8 +255,7 @@ public class ScheduledTasks {
                 unitService.batchDelete(delList);
             }
         } catch (Exception e) {
-            log.error("批量删除单位执行出错。");
-            e.printStackTrace();
+            log.error("批量删除单位执行出错。",e);
         }
     }
 
@@ -280,6 +264,22 @@ public class ScheduledTasks {
      * @param list
      */
     private void batchInsert(List<Unit> list) throws Exception {
+        List<Unit> repeatList = new ArrayList<>();
+        for(Unit unit:list){
+            //判断单位是否重复
+            try {
+                PageData pd = new PageData();
+                pd.put("unit_name", unit.getUnit_name_full());
+                List<PageData> exitList = unitService.listByName(pd);
+                if(exitList!=null && exitList.size()>0){
+                    log.error("添加单位错误,单位名称已存在，单位id:"+unit.getUnit_id()+",单位名称:"+unit.getUnit_name_full());
+                    repeatList.add(unit);
+                }
+            } catch (Exception e) {
+                log.error("单位错误,根据名称查询单位出错",e);
+            }
+        }
+        list.removeAll(repeatList);
         unitService.batchSave(list);
         list.clear();
     }
@@ -290,6 +290,23 @@ public class ScheduledTasks {
      * @throws Exception
      */
     private void batchUpdate(List<Unit> list) throws Exception {
+        List<Unit> repeatList = new ArrayList<>();
+        for(Unit unit:list){
+            //判断单位是否重复
+            try {
+                PageData pd = new PageData();
+                pd.put("unit_name", unit.getUnit_name_full());
+                pd.put("unit_id", unit.getUnit_id());
+                List<PageData> exitList = unitService.listByName(pd);
+                if(exitList!=null && exitList.size()>0){
+                    log.error("更新单位错误,单位名称已存在，单位id:"+unit.getUnit_id()+",单位名称:"+unit.getUnit_name_full());
+                    repeatList.add(unit);
+                }
+            } catch (Exception e) {
+                log.error("单位错误,根据名称查询单位出错",e);
+            }
+        }
+        list.removeAll(repeatList);
         unitService.batchUpdate(list);
         list.clear();
     }
@@ -309,8 +326,7 @@ public class ScheduledTasks {
         try {
             unitList = unitService.listByCity(param);
         } catch (Exception e) {
-            log.error("单位上下级路径更新任务，获取青岛市所有单位出错");
-            e.printStackTrace();
+            log.error("单位上下级路径更新任务，获取青岛市所有单位出错",e);
         }
         if(unitList!=null && unitList.size()>0){
             //挨个单位获取更新
@@ -324,16 +340,14 @@ public class ScheduledTasks {
                         unitPd.put("unit_path",unitPath);
                         updateList.add(unitPd);
                     } catch (Exception e) {
-                        log.error("单位上下级路径更新任务，获取单位路径出错");
-                        e.printStackTrace();
+                        log.error("单位上下级路径更新任务，获取单位路径出错",e);
                     }
                 }
                 if(updateList.size()>200){
                     try {
                         batchUpdateUnitPath(updateList);
                     } catch (Exception e) {
-                        log.error("单位上下级路径更新任务，批量更新单位路径出错");
-                        e.printStackTrace();
+                        log.error("单位上下级路径更新任务，批量更新单位路径出错",e);
                     }
                 }
             }
@@ -342,8 +356,7 @@ public class ScheduledTasks {
                 try {
                     batchUpdateUnitPath(updateList);
                 } catch (Exception e) {
-                    log.error("单位上下级路径更新任务，批量更新单位路径出错");
-                    e.printStackTrace();
+                    log.error("单位上下级路径更新任务，批量更新单位路径出错",e);
                 }
             }
         }
@@ -929,8 +942,7 @@ public class ScheduledTasks {
                         regionService.batchUpdate(updateList);
                         updateList.clear();
                     } catch (Exception e) {
-                        log.error("批量更新region出错");
-                        e.printStackTrace();
+                        log.error("批量更新region出错",e);
                     }
                 }
 
@@ -938,8 +950,7 @@ public class ScheduledTasks {
                     try {
                         regionBatchSave(insertList);
                     } catch (Exception e) {
-                        log.error("批量保存region出错");
-                        e.printStackTrace();
+                        log.error("批量保存region出错",e);
                     }
                 }
 
@@ -950,8 +961,7 @@ public class ScheduledTasks {
                     regionService.batchUpdate(updateList);
                     updateList.clear();
                 } catch (Exception e) {
-                    log.error("批量更新region出错");
-                    e.printStackTrace();
+                    log.error("批量更新region出错",e);
                 }
             }
 
@@ -960,8 +970,7 @@ public class ScheduledTasks {
                     regionService.batchDel(delList);
                     delList.clear();
                 } catch (Exception e) {
-                    log.error("批量删除region出错");
-                    e.printStackTrace();
+                    log.error("批量删除region出错",e);
                 }
             }
 
@@ -969,8 +978,7 @@ public class ScheduledTasks {
                 try {
                     regionBatchSave(insertList);
                 } catch (Exception e) {
-                    log.error("批量保存region出错");
-                    e.printStackTrace();
+                    log.error("批量保存region出错",e);
                 }
             }
 
@@ -980,8 +988,7 @@ public class ScheduledTasks {
                 try {
                     syncDataversionService.updateDataVersion(systemName,methodRegion,timestamp);
                 } catch (Exception e) {
-                    log.error("region同步更新版本号出错");
-                    e.printStackTrace();
+                    log.error("region同步更新版本号出错",e);
                 }
             }
         }

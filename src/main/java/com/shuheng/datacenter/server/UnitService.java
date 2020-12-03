@@ -61,10 +61,10 @@ public class UnitService {
 
     /**
      * 根据单位名称查询
-     * @param name
+     * @param pd
      * @return
      */
-    public List<PageData> listByName(String name) throws Exception {
-        return (List<PageData>) dao.findForList("UnitMapper.listByName",name);
+    public List<PageData> listByName(PageData pd) throws Exception {
+        return (List<PageData>) dao.findForList("UnitMapper.listByName",pd);
     }
 }
