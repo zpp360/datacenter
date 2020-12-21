@@ -576,9 +576,9 @@ public class ScheduledTasks {
                     }
                 }
 
-                if(updateList.size()>200){
+                if(updateList.size()>50){
                     try {
-                        appUserService.batchUpdate(updateList);
+                        userBatchUpdate(updateList);
                     } catch (Exception e) {
                         log.error("批量更新用户出错",e);
                         e.printStackTrace();
@@ -586,7 +586,7 @@ public class ScheduledTasks {
                     }
                 }
 
-                if(insertList.size()>200){
+                if(insertList.size()>50){
                     try {
                         userBatchSave(insertList);
                     } catch (Exception e) {
